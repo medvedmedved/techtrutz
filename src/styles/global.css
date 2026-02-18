@@ -100,3 +100,42 @@ h3 {
     transform: translateY(-6px);
   }
 }
+
+html.theme-dark {
+  color-scheme: dark;
+}
+
+html.theme-dark body {
+  background-image:
+    radial-gradient(circle at 8% 10%, rgba(14, 116, 144, 0.3), transparent 35%),
+    radial-gradient(circle at 95% 8%, rgba(8, 145, 178, 0.24), transparent 38%),
+    linear-gradient(180deg, #080d18 0%, #0a1221 100%);
+  color: #e5edf7;
+}
+
+html.theme-dark .card {
+  border-color: rgba(71, 85, 105, 0.65);
+  background-color: rgba(15, 23, 42, 0.82);
+}
+
+html.theme-dark .bg-white,
+html.theme-dark .bg-white\/80,
+html.theme-dark .bg-white\/90,
+html.theme-dark .bg-white\/95,
+html.theme-dark .bg-slate-50\/70,
+html.theme-dark .bg-slate-50\/90 {
+  background-color: rgba(15, 23, 42, 0.82) !important;
+}
+
+html.theme-dark .text-slate-700,
+html.theme-dark .text-slate-800,
+html.theme-dark .text-slate-900 {
+  color: #d6e2f0 !important;
+}
+
+html.theme-dark .border-slate-200,
+html.theme-dark .border-slate-200\/80,
+html.theme-dark .border-slate-300,
+html.theme-dark .border-slate-400 {
+  border-color: rgba(71, 85, 105, 0.65) !important;
+}

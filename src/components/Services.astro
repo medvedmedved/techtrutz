@@ -2,31 +2,38 @@
 const services = [
   {
     name: 'Computer Reparatur',
-    icon: 'repair'
+    icon: 'repair',
+    key: 'services.item1'
   },
   {
     name: 'PC & Laptop Einrichtung',
-    icon: 'laptop'
+    icon: 'laptop',
+    key: 'services.item2'
   },
   {
     name: 'Netzwerke einrichten (WLAN, Router, Mesh)',
-    icon: 'wifi'
+    icon: 'wifi',
+    key: 'services.item3'
   },
   {
     name: 'Server & NAS Setup',
-    icon: 'server'
+    icon: 'server',
+    key: 'services.item4'
   },
   {
     name: 'IT-Support für Privat & kleine Unternehmen',
-    icon: 'support'
+    icon: 'support',
+    key: 'services.item5'
   },
   {
     name: 'Website Erstellung',
-    icon: 'web'
+    icon: 'web',
+    key: 'services.item6'
   },
   {
     name: 'IT-Beratung',
-    icon: 'guide'
+    icon: 'guide',
+    key: 'services.item7'
   }
 ];
 ---
@@ -34,8 +41,8 @@ const services = [
 <section class="stack-panel z-20" aria-labelledby="services-heading">
   <div class="container-page stack-animate">
     <div class="card p-8 sm:p-12">
-      <h2 id="services-heading" class="text-3xl font-bold sm:text-4xl">Leistungen auf einen Blick</h2>
-      <p class="mt-4 max-w-3xl text-lg text-slate-700">Direkte Unterstützung vor Ort oder per Fernwartung, transparent und verständlich erklärt.</p>
+      <h2 id="services-heading" class="text-3xl font-bold sm:text-4xl" data-i18n="services.title">Leistungen auf einen Blick</h2>
+      <p class="mt-4 max-w-3xl text-lg text-slate-700" data-i18n="services.text">Direkte Unterstützung vor Ort oder per Fernwartung, transparent und verständlich erklärt.</p>
       <ul class="mt-8 grid gap-4 sm:grid-cols-2" aria-label="Leistungsliste">
         {
           services.map((item) => (
@@ -64,7 +71,7 @@ const services = [
                     item.icon === 'guide' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M12 2a8 8 0 018 8c0 5-8 12-8 12S4 15 4 10a8 8 0 018-8m0 4a4 4 0 100 8 4 4 0 000-8"/></svg>
                   }
                 </span>
-                <span>{item.name}</span>
+                <span data-i18n={item.key}>{item.name}</span>
               </span>
             </li>
           ))

@@ -1,9 +1,9 @@
 ---
 const links = [
-  { href: '/', label: 'Startseite' },
-  { href: '/leistungen', label: 'Leistungen' },
-  { href: '/ueber-uns', label: 'Über uns' },
-  { href: '/kontakt', label: 'Kontakt' }
+  { href: '/', label: 'Startseite', key: 'nav.home' },
+  { href: '/leistungen', label: 'Leistungen', key: 'nav.services' },
+  { href: '/ueber-uns', label: 'Über uns', key: 'nav.about' },
+  { href: '/kontakt', label: 'Kontakt', key: 'nav.contact' }
 ];
 
 const pathname = Astro.url.pathname;
@@ -25,11 +25,12 @@ const pathname = Astro.url.pathname;
       aria-controls="mobile-menu"
       aria-label="Navigationsmenü öffnen"
       type="button"
+      data-i18n="nav.menu"
     >
       Menü
     </button>
 
-    <nav aria-label="Hauptnavigation" class="hidden items-center gap-6 md:flex">
+    <nav aria-label="Hauptnavigation" class="hidden items-center gap-4 md:flex">
       {
         links.map((link) => (
           <a
@@ -38,12 +39,29 @@ const pathname = Astro.url.pathname;
               pathname === link.href ? 'text-accent-700' : 'text-slate-700 hover:text-accent-700'
             }`}
             aria-current={pathname === link.href ? 'page' : undefined}
+            data-i18n={link.key}
           >
             {link.label}
           </a>
         ))
       }
-      <a href="/kontakt" class="focus-ring rounded-lg bg-ink-900 px-3 py-2 text-sm font-semibold text-white hover:bg-ink-800">Anfrage starten</a>
+      <div class="flex items-center gap-2">
+        <div class="inline-flex items-center rounded-lg border border-slate-300 p-1">
+          <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="de">DE</button>
+          <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="ru">RU</button>
+          <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="en">EN</button>
+        </div>
+        <button
+          id="theme-toggle"
+          class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+          type="button"
+          data-i18n="theme.toggle"
+          data-theme-button
+        >
+          Dark
+        </button>
+      </div>
+      <a href="/kontakt" class="focus-ring rounded-lg bg-ink-900 px-3 py-2 text-sm font-semibold text-white hover:bg-ink-800" data-i18n="nav.cta">Anfrage starten</a>
     </nav>
   </div>
 
@@ -60,23 +78,26 @@ const pathname = Astro.url.pathname;
             pathname === link.href ? 'text-accent-700' : 'text-slate-700 hover:text-accent-700'
           }`}
           aria-current={pathname === link.href ? 'page' : undefined}
+          data-i18n={link.key}
         >
           {link.label}
         </a>
       ))
     }
+    <div class="mt-2 flex items-center gap-2 border-t border-slate-200 pt-3">
+      <div class="inline-flex items-center rounded-lg border border-slate-300 p-1">
+        <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="de">DE</button>
+        <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="ru">RU</button>
+        <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="en">EN</button>
+      </div>
+      <button
+        class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+        type="button"
+        data-i18n="theme.toggle"
+        data-theme-button
+      >
+        Dark
+      </button>
+    </div>
   </nav>
 </header>
-
-<script>
-  const button = document.getElementById('mobile-menu-button');
-  const menu = document.getElementById('mobile-menu');
-
-  if (button && menu) {
-    button.addEventListener('click', () => {
-      const expanded = button.getAttribute('aria-expanded') === 'true';
-      button.setAttribute('aria-expanded', String(!expanded));
-      menu.classList.toggle('hidden');
-    });
-  }
-</script>
