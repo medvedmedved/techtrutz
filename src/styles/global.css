@@ -51,11 +51,20 @@ h3 {
 }
 
 .stack-panel {
-  position: sticky;
-  top: 0;
-  min-height: 100vh;
+  position: relative;
+  min-height: auto;
   display: flex;
   align-items: center;
+  padding: 2rem 0;
+}
+
+@media (min-width: 1024px) {
+  .stack-panel {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    padding: 0;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
