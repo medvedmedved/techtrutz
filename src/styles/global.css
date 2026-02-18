@@ -115,7 +115,8 @@ html.theme-dark body {
 
 html.theme-dark .card {
   border-color: rgba(71, 85, 105, 0.65);
-  background-color: rgba(15, 23, 42, 0.82);
+  background-color: rgba(8, 14, 28, 0.95);
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.75);
 }
 
 html.theme-dark .bg-white,
@@ -124,13 +125,13 @@ html.theme-dark .bg-white\/90,
 html.theme-dark .bg-white\/95,
 html.theme-dark .bg-slate-50\/70,
 html.theme-dark .bg-slate-50\/90 {
-  background-color: rgba(15, 23, 42, 0.82) !important;
+  background-color: rgba(8, 14, 28, 0.95) !important;
 }
 
 html.theme-dark .text-slate-700,
 html.theme-dark .text-slate-800,
 html.theme-dark .text-slate-900 {
-  color: #d6e2f0 !important;
+  color: #eef4ff !important;
 }
 
 html.theme-dark .border-slate-200,
@@ -138,4 +139,12 @@ html.theme-dark .border-slate-200\/80,
 html.theme-dark .border-slate-300,
 html.theme-dark .border-slate-400 {
   border-color: rgba(71, 85, 105, 0.65) !important;
+}
+
+html.theme-dark .stack-panel {
+  background: linear-gradient(180deg, rgba(5, 10, 20, 0.92), rgba(7, 12, 24, 0.92));
+}
+
+html.theme-dark .text-white {
+  color: #f8fbff !important;
 }
