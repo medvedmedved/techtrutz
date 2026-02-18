@@ -40,6 +40,35 @@ body {
   @apply border-accent-100 shadow-glow;
 }
 
+.cta-card {
+  background: linear-gradient(145deg, #0b1020 0%, #111b34 55%, #0e2b3b 100%);
+  border-color: rgba(56, 189, 248, 0.24);
+  box-shadow: 0 28px 60px -34px rgba(2, 6, 23, 0.95);
+}
+
+.cta-card p {
+  color: #e7f2ff;
+}
+
+.cta-primary {
+  background: #ffffff;
+  color: #0b1020;
+}
+
+.cta-primary:hover {
+  background: #dff5ff;
+}
+
+.cta-secondary {
+  border-color: rgba(226, 232, 240, 0.9);
+  color: #f8fbff;
+  background: rgba(15, 23, 42, 0.22);
+}
+
+.cta-secondary:hover {
+  background: rgba(15, 23, 42, 0.5);
+}
+
 .focus-ring {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2;
 }
@@ -147,4 +176,28 @@ html.theme-dark .stack-panel {
 
 html.theme-dark .text-white {
   color: #f8fbff !important;
+}
+
+html.theme-dark .cta-card {
+  background: linear-gradient(145deg, #070c16 0%, #0b1326 52%, #0b2230 100%);
+  border-color: rgba(34, 211, 238, 0.35);
+}
+
+html.theme-dark .cta-primary {
+  background: #dcf7ff;
+  color: #071224;
+}
+
+html.theme-dark .cta-primary:hover {
+  background: #b8ebff;
+}
+
+html.theme-dark .cta-secondary {
+  border-color: rgba(226, 232, 240, 0.95);
+  color: #ffffff;
+  background: rgba(2, 6, 23, 0.5);
+}
+
+html.theme-dark .cta-secondary:hover {
+  background: rgba(2, 6, 23, 0.7);
 }
