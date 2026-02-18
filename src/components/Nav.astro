@@ -1,0 +1,78 @@
+---
+const links = [
+  { href: '/', label: 'Startseite' },
+  { href: '/leistungen', label: 'Leistungen' },
+  { href: '/ueber-uns', label: 'Über uns' },
+  { href: '/kontakt', label: 'Kontakt' }
+];
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+  <div class="container-page flex h-16 items-center justify-between">
+    <a class="focus-ring rounded text-xl font-bold tracking-tight text-slate-900" href="/" aria-label="TechTrutz Startseite">
+      TechTrutz
+    </a>
+
+    <button
+      id="mobile-menu-button"
+      class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-800 md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Navigationsmenü öffnen"
+      type="button"
+    >
+      Menü
+    </button>
+
+    <nav aria-label="Hauptnavigation" class="hidden items-center gap-6 md:flex">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class={`focus-ring rounded text-sm font-medium ${
+              pathname === link.href ? 'text-accent-700' : 'text-slate-700 hover:text-accent-700'
+            }`}
+            aria-current={pathname === link.href ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <nav
+    id="mobile-menu"
+    aria-label="Mobile Navigation"
+    class="container-page hidden flex-col gap-3 border-t border-slate-200 py-4 md:hidden"
+  >
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          class={`focus-ring rounded px-2 py-1 text-base font-medium ${
+            pathname === link.href ? 'text-accent-700' : 'text-slate-700 hover:text-accent-700'
+          }`}
+          aria-current={pathname === link.href ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script>
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+
+  if (button && menu) {
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('hidden');
+    });
+  }
+</script>

@@ -1,0 +1,38 @@
+---
+const steps = [
+  {
+    title: '1. Anfrage',
+    text: 'Sie schildern Ihr Anliegen per Telefon oder E-Mail.'
+  },
+  {
+    title: '2. Analyse',
+    text: 'Wir prüfen den Bedarf und empfehlen die passende Lösung.'
+  },
+  {
+    title: '3. Umsetzung',
+    text: 'Einrichtung, Reparatur oder Optimierung erfolgt sauber und effizient.'
+  },
+  {
+    title: '4. Betreuung',
+    text: 'Auf Wunsch übernehmen wir langfristigen Support und Wartung.'
+  }
+];
+---
+
+<section class="stack-panel z-40" aria-labelledby="process-heading">
+  <div class="container-page stack-animate">
+    <div class="card p-8 sm:p-12">
+      <h2 id="process-heading" class="text-3xl font-bold text-slate-900 sm:text-4xl">So läuft die Zusammenarbeit</h2>
+      <ol class="mt-8 grid gap-4 md:grid-cols-2" aria-label="Ablauf">
+        {
+          steps.map((step) => (
+            <li class="rounded-xl border border-slate-200 p-5">
+              <h3 class="text-xl font-semibold text-slate-900">{step.title}</h3>
+              <p class="mt-2 text-slate-700">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

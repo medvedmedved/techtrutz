@@ -1,0 +1,38 @@
+---
+const benefits = [
+  {
+    title: 'Schnelle Reaktionszeiten',
+    text: 'Kurzfristige Termine und priorisierte Hilfe bei akuten Ausfällen.'
+  },
+  {
+    title: 'Verständliche Kommunikation',
+    text: 'Klare Empfehlungen ohne Fachjargon, damit Sie sicher entscheiden können.'
+  },
+  {
+    title: 'Planbare Kosten',
+    text: 'Transparente Preise und saubere Dokumentation aller Maßnahmen.'
+  },
+  {
+    title: 'Lokaler Ansprechpartner',
+    text: 'Persönliche Betreuung statt anonymer Hotline.'
+  }
+];
+---
+
+<section class="stack-panel z-30" aria-labelledby="benefits-heading">
+  <div class="container-page stack-animate">
+    <div class="card p-8 sm:p-12">
+      <h2 id="benefits-heading" class="text-3xl font-bold text-slate-900 sm:text-4xl">Warum TechTrutz?</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        {
+          benefits.map((benefit) => (
+            <article class="rounded-xl border border-slate-200 p-5">
+              <h3 class="text-xl font-semibold text-slate-900">{benefit.title}</h3>
+              <p class="mt-2 text-slate-700">{benefit.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
