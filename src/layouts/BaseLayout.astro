@@ -32,6 +32,19 @@ const organizationLd = {
   areaServed: 'Deutschland',
   description: site.description
 };
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.url,
+  inLanguage: 'de-DE',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${site.url}/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string'
+  }
+};
 ---
 
 <!doctype html>
@@ -41,8 +54,13 @@ const organizationLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content="IT Service, Computer Reparatur, Netzwerk Einrichtung, Server Support, Website Erstellung, IT Beratung, Deutschland" />
+    <meta name="author" content={site.name} />
     <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0b1020" />
     <link rel="canonical" href={canonical} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -50,14 +68,17 @@ const organizationLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${site.name} - IT Service in Deutschland`} />
     <meta property="og:locale" content="de_DE" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={`${site.name} - IT Service in Deutschland`} />
 
     <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Zum Inhalt springen</a>

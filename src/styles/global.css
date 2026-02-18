@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -14,6 +14,10 @@ html {
 
 body {
   @apply bg-slate-100 text-slate-900 font-sans antialiased;
+  background-image:
+    radial-gradient(circle at 8% 10%, rgba(8, 145, 178, 0.16), transparent 35%),
+    radial-gradient(circle at 95% 8%, rgba(20, 184, 166, 0.12), transparent 38%),
+    linear-gradient(180deg, #f5fbff 0%, #f8fafc 100%);
 }
 
 .skip-link {
@@ -29,11 +33,21 @@ body {
 }
 
 .card {
-  @apply rounded-2xl border border-slate-200 bg-white shadow-soft;
+  @apply rounded-2xl border border-slate-200/80 bg-white/90 shadow-soft backdrop-blur-sm;
+}
+
+.card-glow {
+  @apply border-accent-100 shadow-glow;
 }
 
 .focus-ring {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2;
+}
+
+h1,
+h2,
+h3 {
+  @apply font-display tracking-tight text-ink-900;
 }
 
 .stack-panel {
@@ -59,5 +73,21 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .float-soft {
+    animation: floatSoft 8s ease-in-out infinite;
+  }
+}
+
+@keyframes floatSoft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }

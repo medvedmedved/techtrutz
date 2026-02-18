@@ -2,19 +2,23 @@
 const benefits = [
   {
     title: 'Schnelle Reaktionszeiten',
-    text: 'Kurzfristige Termine und priorisierte Hilfe bei akuten Ausfällen.'
+    text: 'Kurzfristige Termine und priorisierte Hilfe bei akuten Ausfällen.',
+    icon: 'bolt'
   },
   {
     title: 'Verständliche Kommunikation',
-    text: 'Klare Empfehlungen ohne Fachjargon, damit Sie sicher entscheiden können.'
+    text: 'Klare Empfehlungen ohne Fachjargon, damit Sie sicher entscheiden können.',
+    icon: 'chat'
   },
   {
     title: 'Planbare Kosten',
-    text: 'Transparente Preise und saubere Dokumentation aller Maßnahmen.'
+    text: 'Transparente Preise und saubere Dokumentation aller Maßnahmen.',
+    icon: 'wallet'
   },
   {
     title: 'Lokaler Ansprechpartner',
-    text: 'Persönliche Betreuung statt anonymer Hotline.'
+    text: 'Persönliche Betreuung statt anonymer Hotline.',
+    icon: 'pin'
   }
 ];
 ---
@@ -22,12 +26,26 @@ const benefits = [
 <section class="stack-panel z-30" aria-labelledby="benefits-heading">
   <div class="container-page stack-animate">
     <div class="card p-8 sm:p-12">
-      <h2 id="benefits-heading" class="text-3xl font-bold text-slate-900 sm:text-4xl">Warum TechTrutz?</h2>
+      <h2 id="benefits-heading" class="text-3xl font-bold sm:text-4xl">Warum TechTrutz?</h2>
       <div class="mt-8 grid gap-4 md:grid-cols-2">
         {
           benefits.map((benefit) => (
-            <article class="rounded-xl border border-slate-200 p-5">
-              <h3 class="text-xl font-semibold text-slate-900">{benefit.title}</h3>
+            <article class="rounded-xl border border-slate-200 bg-white/95 p-5 transition hover:-translate-y-0.5 hover:border-accent-200">
+              <span class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-100 text-accent-700">
+                {
+                  benefit.icon === 'bolt' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>
+                }
+                {
+                  benefit.icon === 'chat' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M4 4h16v12H7l-3 3zm3 4v2h10V8zm0 4v2h7v-2z"/></svg>
+                }
+                {
+                  benefit.icon === 'wallet' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M3 6h16a2 2 0 012 2v8a2 2 0 01-2 2H3zm13 6h3v2h-3zM3 4h13v2H3z"/></svg>
+                }
+                {
+                  benefit.icon === 'pin' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7m0 4a3 3 0 100 6 3 3 0 000-6"/></svg>
+                }
+              </span>
+              <h3 class="text-xl font-semibold">{benefit.title}</h3>
               <p class="mt-2 text-slate-700">{benefit.text}</p>
             </article>
           ))

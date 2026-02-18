@@ -9,10 +9,13 @@ const links = [
 const pathname = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
   <div class="container-page flex h-16 items-center justify-between">
-    <a class="focus-ring rounded text-xl font-bold tracking-tight text-slate-900" href="/" aria-label="TechTrutz Startseite">
-      TechTrutz
+    <a class="focus-ring inline-flex items-center gap-2 rounded text-xl font-bold tracking-tight text-ink-900" href="/" aria-label="TechTrutz Startseite">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-ink-900 text-white">
+        <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>
+      </span>
+      <span class="font-display">TechTrutz</span>
     </a>
 
     <button
@@ -40,6 +43,7 @@ const pathname = Astro.url.pathname;
           </a>
         ))
       }
+      <a href="/kontakt" class="focus-ring rounded-lg bg-ink-900 px-3 py-2 text-sm font-semibold text-white hover:bg-ink-800">Anfrage starten</a>
     </nav>
   </div>
 

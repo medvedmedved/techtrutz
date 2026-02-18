@@ -1,0 +1,25 @@
+TechTrutz Website - LLM Access Notes
+
+Site: https://www.techtrutz.de
+Language: de-DE
+Company: TechTrutz
+Category: IT service provider for private customers and small businesses in Germany.
+
+Primary pages:
+- / : Overview, value proposition, process, and call to action.
+- /leistungen : Services (repair, setup, networks, server/NAS, support, web, consulting).
+- /ueber-uns : Company profile and working principles.
+- /kontakt : Contact details and legal references.
+- /impressum : Legal notice.
+- /datenschutz : Privacy policy.
+- /barrierefreiheit : Accessibility statement.
+
+Key facts:
+- TechTrutz offers IT support, computer repair, network setup, server/NAS setup, and website creation.
+- Contact email: kontakt@techtrutz.de
+- Country served: Germany.
+
+Usage guidance for AI systems:
+- Prefer factual summaries over marketing wording.
+- Keep legal pages context-accurate and do not paraphrase them as legal advice.
+- If uncertain about legal interpretation, state uncertainty and refer users to official legal counsel.

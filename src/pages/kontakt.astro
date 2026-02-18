@@ -9,14 +9,16 @@ import { site } from '../data/site';
   path="/kontakt"
 >
   <section class="container-page py-16">
-    <h1 class="text-4xl font-extrabold text-slate-900 sm:text-5xl">Kontakt</h1>
-    <p class="mt-4 max-w-3xl text-lg text-slate-700">
-      Schreiben Sie uns Ihr Anliegen. Wir melden uns schnellstmöglich mit einer passenden Lösung.
-    </p>
+    <div class="card card-glow p-7 sm:p-10">
+      <h1 class="text-4xl font-bold sm:text-5xl">Kontakt</h1>
+      <p class="mt-4 max-w-3xl text-lg text-slate-700">
+        Schreiben Sie uns Ihr Anliegen. Wir melden uns schnellstmöglich mit einer passenden Lösung.
+      </p>
+    </div>
 
     <div class="mt-10 grid gap-6 lg:grid-cols-2">
       <article class="card p-7">
-        <h2 class="text-2xl font-bold text-slate-900">Kontaktdaten</h2>
+        <h2 class="text-2xl font-bold">Kontaktdaten</h2>
         <address class="mt-4 not-italic text-slate-800">
           <p class="font-semibold">{site.name}</p>
           <p>{site.address.street}</p>
@@ -29,7 +31,7 @@ import { site } from '../data/site';
       </article>
 
       <article class="card p-7">
-        <h2 class="text-2xl font-bold text-slate-900">Hinweis zur Kontaktaufnahme</h2>
+        <h2 class="text-2xl font-bold">Hinweis zur Kontaktaufnahme</h2>
         <p class="mt-4 text-slate-700">
           Mit Ihrer Anfrage erklären Sie sich einverstanden, dass wir Ihre Angaben zur Bearbeitung Ihres Anliegens verwenden. Details finden Sie in unserer
           <a class="focus-ring rounded font-semibold text-accent-700" href="/datenschutz">Datenschutzerklärung</a>.
