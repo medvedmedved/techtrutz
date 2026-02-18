@@ -40,8 +40,13 @@ jobs:
       - name: Setup npm
         run: npm install -g npm@11
 
+      - name: Show tool versions
+        run: |
+          node -v
+          npm -v
+
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Build site
         run: npm run build
