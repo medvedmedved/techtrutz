@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Benefits from '../components/Benefits.astro';
+import Process from '../components/Process.astro';
+import CTA from '../components/CTA.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title={`${site.name} | IT-Service für Privat & Unternehmen`} description={site.description} path="/">
+  <Hero />
+  <Services />
+  <Benefits />
+  <Process />
+  <CTA />
+</BaseLayout>

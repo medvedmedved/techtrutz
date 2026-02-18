@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const services = [
+  {
+    title: 'Computer Reparatur',
+    text: 'Fehlerdiagnose, Hardwaretausch, Datenrettung im Rahmen technischer Möglichkeiten und Systemoptimierung.'
+  },
+  {
+    title: 'PC & Laptop Einrichtung',
+    text: 'Neuinstallation, Einrichtung von Benutzerkonten, E-Mail, Druckern, Sicherheitssoftware und Backup.'
+  },
+  {
+    title: 'Netzwerke (WLAN, Router, Mesh)',
+    text: 'Stabile Heim- und Büronetzwerke mit sauberer Abdeckung, sicherer Konfiguration und nachvollziehbarer Dokumentation.'
+  },
+  {
+    title: 'Server & NAS Setup',
+    text: 'Einrichtung von lokalen Servern und NAS-Systemen inklusive Rechtekonzept, Backup-Strategie und Monitoring-Basis.'
+  },
+  {
+    title: 'IT-Support',
+    text: 'Laufende Betreuung für Privatpersonen und kleine Unternehmen per Fernwartung und Vor-Ort-Service.'
+  },
+  {
+    title: 'Website Erstellung',
+    text: 'Moderne, schnelle und wartbare Websites für kleine Unternehmen mit Fokus auf Performance und Sichtbarkeit.'
+  },
+  {
+    title: 'IT-Beratung',
+    text: 'Unabhängige Beratung zu Infrastruktur, Sicherheit, Lizenzierung und sinnvollen Investitionen.'
+  }
+];
+---
+
+<BaseLayout
+  title={`Leistungen | ${site.name}`}
+  description="Detaillierte IT-Leistungen von TechTrutz: Reparatur, Einrichtung, Netzwerke, Server, Websites und IT-Support."
+  path="/leistungen"
+>
+  <section class="container-page py-16">
+    <h1 class="text-4xl font-extrabold text-slate-900 sm:text-5xl">Unsere Leistungen</h1>
+    <p class="mt-4 max-w-3xl text-lg text-slate-700">
+      TechTrutz bietet modulare IT-Dienstleistungen für private Haushalte und kleine Unternehmen in Deutschland.
+    </p>
+
+    <div class="mt-10 grid gap-5 md:grid-cols-2">
+      {
+        services.map((service) => (
+          <article class="card p-6">
+            <h2 class="text-2xl font-bold text-slate-900">{service.title}</h2>
+            <p class="mt-3 text-slate-700">{service.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

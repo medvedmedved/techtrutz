@@ -13,7 +13,7 @@ interface Props {
 
 const { title, description, path = '/' } = Astro.props;
 const canonical = new URL(path, site.url).toString();
-const ogImage = new URL('/og-image.jpg', site.url).toString();
+const ogImage = new URL('/og-image.svg', site.url).toString();
 
 const organizationLd = {
   '@context': 'https://schema.org',

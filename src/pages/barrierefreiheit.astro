@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title={`Barrierefreiheit | ${site.name}`}
+  description="Erklärung zur Barrierefreiheit der Website von TechTrutz."
+  path="/barrierefreiheit"
+>
+  <section class="container-page py-16">
+    <h1 class="text-4xl font-extrabold text-slate-900 sm:text-5xl">Erklärung zur Barrierefreiheit</h1>
+    <article class="card mt-8 p-7 text-slate-800">
+      <h2 class="text-2xl font-bold text-slate-900">Stand der Vereinbarkeit</h2>
+      <p class="mt-4">
+        Diese Website ist weitgehend mit den Anforderungen der Barrierefreien-Informationstechnik-Verordnung (BITV 2.0) und den
+        Web Content Accessibility Guidelines (WCAG 2.1, Konformitätsstufe AA) vereinbar.
+      </p>
+
+      <h2 class="mt-8 text-2xl font-bold text-slate-900">Umgesetzte Maßnahmen</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-6">
+        <li>Semantische HTML-Struktur mit sinnvoller Überschriftenhierarchie</li>
+        <li>Tastaturbedienbarkeit aller zentralen Navigations- und Interaktionselemente</li>
+        <li>Sichtbare Fokuszustände und kontrastreiche Farbgestaltung</li>
+        <li>Responsives Layout mit gut lesbarer Typografie</li>
+        <li>ARIA-Labels für interaktive Bedienelemente</li>
+      </ul>
+
+      <h2 class="mt-8 text-2xl font-bold text-slate-900">Nicht barrierefreie Inhalte</h2>
+      <p class="mt-4">
+        Trotz sorgfältiger Umsetzung können einzelne Inhalte oder Dokumente noch nicht vollständig barrierefrei sein. Wir arbeiten laufend an
+        Verbesserungen.
+      </p>
+
+      <h2 class="mt-8 text-2xl font-bold text-slate-900">Feedback und Kontakt</h2>
+      <p class="mt-4">
+        Wenn Sie auf Barrieren stoßen, melden Sie diese bitte an: <a class="focus-ring rounded font-semibold text-accent-700" href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2 class="mt-8 text-2xl font-bold text-slate-900">Erstellungsdatum</h2>
+      <p class="mt-4">Diese Erklärung wurde am 18. Februar 2026 erstellt und zuletzt am 18. Februar 2026 überprüft.</p>
+    </article>
+  </section>
+</BaseLayout>

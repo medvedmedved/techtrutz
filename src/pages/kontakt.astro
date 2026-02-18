@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title={`Kontakt | ${site.name}`}
+  description="Kontaktieren Sie TechTrutz für IT-Support, Reparaturen, Netzwerk- und Serverlösungen."
+  path="/kontakt"
+>
+  <section class="container-page py-16">
+    <h1 class="text-4xl font-extrabold text-slate-900 sm:text-5xl">Kontakt</h1>
+    <p class="mt-4 max-w-3xl text-lg text-slate-700">
+      Schreiben Sie uns Ihr Anliegen. Wir melden uns schnellstmöglich mit einer passenden Lösung.
+    </p>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-2">
+      <article class="card p-7">
+        <h2 class="text-2xl font-bold text-slate-900">Kontaktdaten</h2>
+        <address class="mt-4 not-italic text-slate-800">
+          <p class="font-semibold">{site.name}</p>
+          <p>{site.address.street}</p>
+          <p>{site.address.zip} {site.address.city}</p>
+          <p>{site.address.country}</p>
+        </address>
+        <p class="mt-4 text-slate-800"><strong>Telefon:</strong> <a class="focus-ring rounded hover:text-accent-700" href={`tel:${site.phone.replace(/\s+/g, '')}`}>{site.phone}</a></p>
+        <p class="mt-2 text-slate-800"><strong>E-Mail:</strong> <a class="focus-ring rounded hover:text-accent-700" href={`mailto:${site.email}`}>{site.email}</a></p>
+        <p class="mt-2 text-slate-800"><strong>USt-IdNr.:</strong> {site.ustId}</p>
+      </article>
+
+      <article class="card p-7">
+        <h2 class="text-2xl font-bold text-slate-900">Hinweis zur Kontaktaufnahme</h2>
+        <p class="mt-4 text-slate-700">
+          Mit Ihrer Anfrage erklären Sie sich einverstanden, dass wir Ihre Angaben zur Bearbeitung Ihres Anliegens verwenden. Details finden Sie in unserer
+          <a class="focus-ring rounded font-semibold text-accent-700" href="/datenschutz">Datenschutzerklärung</a>.
+        </p>
+        <p class="mt-4 text-slate-700">
+          Für rechtliche Angaben gemäß §5 TMG beachten Sie bitte unser
+          <a class="focus-ring rounded font-semibold text-accent-700" href="/impressum">Impressum</a>.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
