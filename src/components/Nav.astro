@@ -7,7 +7,12 @@ const links = [
 ];
 
 const pathname = Astro.url.pathname;
-const mobileArcAngles = ['-165deg', '-125deg', '-55deg', '-15deg'];
+const mobileArcLayout = [
+  { angle: '-168deg', radius: '8.55rem' },
+  { angle: '-128deg', radius: '8.05rem' },
+  { angle: '-88deg', radius: '8.05rem' },
+  { angle: '-48deg', radius: '8.55rem' }
+];
 ---
 
 <header class="site-header sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
@@ -105,7 +110,7 @@ const mobileArcAngles = ['-165deg', '-125deg', '-55deg', '-15deg'];
                 }`}
                 aria-current={pathname === link.href ? 'page' : undefined}
                 data-i18n={link.key}
-                style={`--arc-angle: ${mobileArcAngles[index]}; --arc-delay: ${index * 70}ms;`}
+                style={`--arc-angle: ${mobileArcLayout[index].angle}; --arc-radius: ${mobileArcLayout[index].radius}; --arc-delay: ${index * 85}ms; --arc-z: ${20 - index};`}
               >
                 {link.label}
               </a>
