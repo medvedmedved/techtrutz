@@ -1,3 +1,7 @@
+---
+import { site } from '../data/site';
+---
+
 <section class="stack-panel z-50" aria-labelledby="cta-heading">
   <div class="container-page stack-animate">
     <div class="card card-glow relative overflow-hidden p-8 sm:p-12">
@@ -9,9 +13,9 @@
           <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M3 5h18v14H3zm2 2v.5l7 4 7-4V7l-7 4z"/></svg>
           Jetzt Kontakt aufnehmen
         </a>
-        <a href="tel:+490000000000" class="focus-ring inline-flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-800 hover:bg-white" data-i18n="cta.cta2">
+        <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" class="focus-ring inline-flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-800 hover:bg-white" data-i18n="cta.cta2">
           <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.2 11 11 0 003.4.5 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.5 3.4 1 1 0 01-.2 1z"/></svg>
-          Telefonisch anfragen
+          Per WhatsApp anfragen
         </a>
       </div>
     </div>

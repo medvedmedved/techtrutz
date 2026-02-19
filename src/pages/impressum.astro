@@ -5,35 +5,45 @@ import { site } from '../data/site';
 
 <BaseLayout
   title={`Impressum | ${site.name}`}
-  description="Impressum von TechTrutz gemäß §5 TMG."
+  description="Impressum von TechTrutz gemäß §5 DDG."
   path="/impressum"
 >
   <section class="container-page py-16">
     <h1 class="text-4xl font-extrabold text-slate-900 sm:text-5xl">Impressum</h1>
     <article class="card card-glow mt-8 p-7 text-slate-800">
-      <h2 class="text-2xl font-bold text-slate-900">Angaben gemäß §5 TMG</h2>
-      <p class="mt-4 font-semibold">{site.name}</p>
+      <h2 class="text-2xl font-bold text-slate-900">Angaben gemäß §5 DDG</h2>
+      <p class="mt-4 font-semibold">{site.ownerName}</p>
+      <p>{site.name}</p>
       <p>{site.address.street}</p>
       <p>{site.address.zip} {site.address.city}</p>
       <p>{site.address.country}</p>
 
       <h2 class="mt-8 text-2xl font-bold text-slate-900">Kontakt</h2>
       <p class="mt-4">Telefon: {site.phone}</p>
-      <p>E-Mail: {site.email}</p>
+      <p>
+        WhatsApp: <a class="focus-ring rounded hover:text-accent-700" href={site.whatsappUrl} target="_blank" rel="noopener noreferrer">{site.phone}</a>
+      </p>
+      <p>
+        E-Mail: <a class="focus-ring rounded hover:text-accent-700" href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
 
-      <h2 class="mt-8 text-2xl font-bold text-slate-900">Umsatzsteuer-ID</h2>
-      <p class="mt-4">Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz: {site.ustId}</p>
+      {site.ustId && (
+        <>
+          <h2 class="mt-8 text-2xl font-bold text-slate-900">Umsatzsteuer-ID</h2>
+          <p class="mt-4">Umsatzsteuer-Identifikationsnummer gemäß §27a Umsatzsteuergesetz: {site.ustId}</p>
+        </>
+      )}
 
-      <h2 class="mt-8 text-2xl font-bold text-slate-900">Verantwortlich für den Inhalt nach §55 Abs. 2 RStV</h2>
-      <p class="mt-4">[Vorname Nachname]</p>
+      <h2 class="mt-8 text-2xl font-bold text-slate-900">Verantwortlich für den Inhalt nach §18 Abs. 2 MStV</h2>
+      <p class="mt-4">{site.ownerName}</p>
       <p>{site.address.street}</p>
       <p>{site.address.zip} {site.address.city}</p>
 
       <h2 class="mt-8 text-2xl font-bold text-slate-900">Haftung für Inhalte</h2>
       <p class="mt-4">
-        Als Diensteanbieter sind wir gemäß §7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
-        Nach §§8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu
-        überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+        Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht
+        verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine
+        rechtswidrige Tätigkeit hinweisen.
       </p>
 
       <h2 class="mt-8 text-2xl font-bold text-slate-900">Haftung für Links</h2>

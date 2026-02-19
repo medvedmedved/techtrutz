@@ -7,28 +7,34 @@ const links = [
 ];
 
 const pathname = Astro.url.pathname;
+const mobileAngles = ['-140deg', '-95deg', '-50deg', '-5deg'];
 ---
 
 <header class="site-header sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
   <div class="container-page flex h-28 items-center justify-between">
     <a class="focus-ring inline-flex items-center rounded-xl" href="/" aria-label="TechTrutz Startseite">
       <span class="site-logo-switch" aria-hidden="true">
-        <img src="/logoforwhite-nav.png" alt="" class="logo-wordmark logo-wordmark-nav site-logo site-logo-light" loading="eager" decoding="async" />
-        <img src="/logoforblack-nav.png" alt="" class="logo-wordmark logo-wordmark-nav site-logo site-logo-dark" loading="eager" decoding="async" />
+        <img src="/logoforwhite-nav.png" alt="" class="logo-wordmark logo-wordmark-nav site-logo site-logo-light" loading="eager" fetchpriority="high" decoding="async" />
+        <img src="/logoforblack-nav.png" alt="" class="logo-wordmark logo-wordmark-nav site-logo site-logo-dark" loading="lazy" decoding="async" />
       </span>
       <span class="sr-only">TechTrutz</span>
     </a>
 
     <button
       id="mobile-menu-button"
-      class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-800 md:hidden"
+      class="site-mobile-menu-button focus-ring rounded-full border border-slate-300 px-3 py-2 text-sm font-medium text-slate-800 md:hidden"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="Navigationsmenü öffnen"
       type="button"
-      data-i18n="nav.menu"
     >
-      Menü
+      <svg class="menu-icon-bars h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+      </svg>
+      <svg class="menu-icon-close hidden h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M6.7 5.3L5.3 6.7 10.6 12l-5.3 5.3 1.4 1.4 5.3-5.3 5.3 5.3 1.4-1.4-5.3-5.3 5.3-5.3-1.4-1.4-5.3 5.3z" />
+      </svg>
+      <span class="sr-only" data-i18n="nav.menu">Menü</span>
     </button>
 
     <nav aria-label="Hauptnavigation" class="hidden items-center gap-4 md:flex">
@@ -69,36 +75,60 @@ const pathname = Astro.url.pathname;
   <nav
     id="mobile-menu"
     aria-label="Mobile Navigation"
-    class="site-mobile-menu container-page hidden flex-col gap-3 border-t border-slate-200 py-4 md:hidden"
+    class="site-mobile-menu hidden md:hidden"
+    data-open="false"
   >
-    {
-      links.map((link) => (
-        <a
-          href={link.href}
-          class={`focus-ring rounded px-2 py-1 text-base font-medium ${
-            pathname === link.href ? 'text-accent-700' : 'text-slate-700 hover:text-accent-700'
-          }`}
-          aria-current={pathname === link.href ? 'page' : undefined}
-          data-i18n={link.key}
-        >
-          {link.label}
-        </a>
-      ))
-    }
-    <div class="mt-2 flex items-center gap-2 border-t border-slate-200 pt-3">
-      <div class="inline-flex items-center rounded-lg border border-slate-300 p-1">
-        <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="de">DE</button>
-        <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="ru">RU</button>
-        <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="en">EN</button>
+    <button class="site-mobile-menu-backdrop" type="button" aria-label="Menü schließen" data-menu-close></button>
+    <div class="site-mobile-menu-panel">
+      <div class="mobile-radial-menu">
+        {
+          links.map((link, index) => (
+            <a
+              href={link.href}
+              class={`focus-ring mobile-radial-link ${
+                pathname === link.href ? 'mobile-radial-link-active' : ''
+              }`}
+              aria-current={pathname === link.href ? 'page' : undefined}
+              data-i18n={link.key}
+              style={`--radial-angle: ${mobileAngles[index]}; --radial-delay: ${index * 45}ms;`}
+            >
+              {link.label}
+            </a>
+          ))
+        }
+        <div class="mobile-radial-center" aria-hidden="true">
+          <span class="mobile-radial-brand">TechTrutz</span>
+          <span class="mobile-radial-pulse"></span>
+        </div>
       </div>
-      <button
-        class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
-        type="button"
-        data-i18n="theme.toggle"
-        data-theme-button
-      >
-        Dark
-      </button>
+
+      <div class="site-mobile-menu-controls">
+        <div class="inline-flex items-center rounded-lg border border-slate-300 p-1">
+          <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="de" data-menu-close>DE</button>
+          <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="ru" data-menu-close>RU</button>
+          <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="en" data-menu-close>EN</button>
+        </div>
+        <button
+          class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+          type="button"
+          data-i18n="theme.toggle"
+          data-theme-button
+          data-menu-close
+        >
+          Dark
+        </button>
+      </div>
+      <a href="/kontakt" class="focus-ring mt-4 inline-flex w-full items-center justify-center rounded-lg bg-ink-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-ink-800" data-i18n="nav.cta" data-menu-close>Anfrage starten</a>
     </div>
   </nav>
 </header>
+
+<style>
+  #mobile-menu-button[aria-expanded='true'] .menu-icon-bars {
+    display: none;
+  }
+
+  #mobile-menu-button[aria-expanded='true'] .menu-icon-close {
+    display: block;
+  }
+</style>

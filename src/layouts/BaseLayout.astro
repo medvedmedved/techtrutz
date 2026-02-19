@@ -21,9 +21,10 @@ const organizationLd = {
   '@type': 'LocalBusiness',
   name: site.name,
   url: site.url,
-  telephone: site.phone,
+  telephone: site.phoneHref,
   email: site.email,
   logo: logoImage,
+  sameAs: [site.whatsappUrl],
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.address.street,
@@ -68,6 +69,11 @@ const websiteLd = {
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260219" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" />
+    </noscript>
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -159,7 +165,7 @@ const websiteLd = {
             'cta.title': 'IT-Probleme zügig lösen lassen',
             'cta.text': 'Sichern Sie sich eine unverbindliche Erstberatung. Gemeinsam priorisieren wir Ihre nächsten Schritte.',
             'cta.cta1': 'Jetzt Kontakt aufnehmen',
-            'cta.cta2': 'Telefonisch anfragen',
+            'cta.cta2': 'Per WhatsApp anfragen',
             'page.services.title': 'Unsere Leistungen',
             'page.services.text': 'TechTrutz bietet modulare IT-Dienstleistungen für private Haushalte und kleine Unternehmen in Deutschland.',
             'page.about.title': 'Über TechTrutz',
@@ -175,7 +181,7 @@ const websiteLd = {
             'page.contact.card1.title': 'Kontaktdaten',
             'page.contact.card2.title': 'Hinweis zur Kontaktaufnahme',
             'page.contact.card2.text1': 'Mit Ihrer Anfrage erklären Sie sich einverstanden, dass wir Ihre Angaben zur Bearbeitung Ihres Anliegens verwenden. Details finden Sie in unserer Datenschutzerklärung.',
-            'page.contact.card2.text2': 'Für rechtliche Angaben gemäß §5 TMG beachten Sie bitte unser Impressum.',
+            'page.contact.card2.text2': 'Für rechtliche Angaben gemäß §5 DDG beachten Sie bitte unser Impressum.',
             'page.contact.form.title': 'Rückruf oder Nachricht anfordern',
             'page.contact.form.text': 'Kurz ausfüllen, abschicken, wir melden uns zeitnah mit einer konkreten Empfehlung.',
             'page.contact.form.name': 'Name *',
@@ -252,7 +258,7 @@ const websiteLd = {
             'cta.title': 'Решайте IT-проблемы быстрее',
             'cta.text': 'Получите бесплатную первичную консультацию. Вместе определим приоритетные шаги.',
             'cta.cta1': 'Связаться сейчас',
-            'cta.cta2': 'Позвонить',
+            'cta.cta2': 'Написать в WhatsApp',
             'page.services.title': 'Наши услуги',
             'page.services.text': 'TechTrutz предлагает модульные IT-услуги для частных клиентов и малого бизнеса в Германии.',
             'page.about.title': 'О TechTrutz',
@@ -268,7 +274,7 @@ const websiteLd = {
             'page.contact.card1.title': 'Контактные данные',
             'page.contact.card2.title': 'Примечание по обращению',
             'page.contact.card2.text1': 'Отправляя запрос, вы соглашаетесь на обработку данных для ответа по вашему обращению. Подробности в нашей политике конфиденциальности.',
-            'page.contact.card2.text2': 'Юридические сведения согласно §5 TMG доступны в разделе Impressum.',
+            'page.contact.card2.text2': 'Юридические сведения согласно §5 DDG доступны в разделе Impressum.',
             'page.contact.form.title': 'Запросить звонок или написать нам',
             'page.contact.form.text': 'Заполните короткую форму, и мы свяжемся с вами с понятным планом действий.',
             'page.contact.form.name': 'Имя *',
@@ -345,7 +351,7 @@ const websiteLd = {
             'cta.title': 'Solve IT issues faster',
             'cta.text': 'Get a free initial consultation. Together we prioritize your next steps.',
             'cta.cta1': 'Contact now',
-            'cta.cta2': 'Call us',
+            'cta.cta2': 'Message on WhatsApp',
             'page.services.title': 'Our services',
             'page.services.text': 'TechTrutz provides modular IT services for private households and small businesses in Germany.',
             'page.about.title': 'About TechTrutz',
@@ -361,7 +367,7 @@ const websiteLd = {
             'page.contact.card1.title': 'Contact details',
             'page.contact.card2.title': 'Contact notice',
             'page.contact.card2.text1': 'By contacting us, you agree that we may process your details to handle your request. See our privacy policy for details.',
-            'page.contact.card2.text2': 'For legal information under §5 TMG, please see our imprint.',
+            'page.contact.card2.text2': 'For legal information under §5 DDG, please see our imprint.',
             'page.contact.form.title': 'Request a callback or send a message',
             'page.contact.form.text': 'Complete the short form and we will reply quickly with a practical next step.',
             'page.contact.form.name': 'Name *',
@@ -416,10 +422,37 @@ const websiteLd = {
         const menuButton = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
         if (menuButton && menu) {
+          const closeMenu = () => {
+            menuButton.setAttribute('aria-expanded', 'false');
+            menu.classList.remove('flex');
+            menu.classList.add('hidden');
+            menu.setAttribute('data-open', 'false');
+            document.body.classList.remove('mobile-menu-open');
+          };
+
+          const openMenu = () => {
+            menuButton.setAttribute('aria-expanded', 'true');
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+            menu.setAttribute('data-open', 'true');
+            document.body.classList.add('mobile-menu-open');
+          };
+
           menuButton.addEventListener('click', () => {
             const expanded = menuButton.getAttribute('aria-expanded') === 'true';
-            menuButton.setAttribute('aria-expanded', String(!expanded));
-            menu.classList.toggle('hidden');
+            if (expanded) {
+              closeMenu();
+            } else {
+              openMenu();
+            }
+          });
+
+          menu.querySelectorAll('a, [data-menu-close]').forEach((el) => {
+            el.addEventListener('click', () => closeMenu());
+          });
+
+          document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeMenu();
           });
         }
 
