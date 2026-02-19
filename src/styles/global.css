@@ -41,6 +41,19 @@ body {
   @apply border-accent-100 shadow-glow;
 }
 
+.logo-wordmark {
+  @apply w-auto;
+  filter: drop-shadow(0 1px 2px rgba(2, 6, 23, 0.28));
+}
+
+.logo-wordmark-nav {
+  @apply h-11;
+}
+
+.logo-wordmark-footer {
+  @apply h-12;
+}
+
 .hero-card-bg {
   @apply bg-gradient-to-br from-white via-cyan-50 to-slate-100;
 }
@@ -154,6 +167,10 @@ html.theme-dark .card {
 
 html.theme-dark .hero-card-bg {
   background-image: linear-gradient(145deg, rgba(7, 12, 24, 0.74) 0%, rgba(10, 31, 46, 0.56) 48%, rgba(7, 20, 33, 0.82) 100%);
+}
+
+html.theme-dark .logo-wordmark {
+  filter: drop-shadow(0 2px 4px rgba(2, 6, 23, 0.65));
 }
 
 html.theme-dark .bg-white,
