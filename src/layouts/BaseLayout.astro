@@ -14,6 +14,7 @@ interface Props {
 const { title, description, path = '/' } = Astro.props;
 const canonical = new URL(path, site.url).toString();
 const ogImage = new URL('/og-image.svg', site.url).toString();
+const logoImage = new URL('/logo.png', site.url).toString();
 
 const organizationLd = {
   '@context': 'https://schema.org',
@@ -22,6 +23,7 @@ const organizationLd = {
   url: site.url,
   telephone: site.phone,
   email: site.email,
+  logo: logoImage,
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.address.street,
@@ -59,6 +61,8 @@ const websiteLd = {
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0b1020" />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/logo-icon.png" />
+    <link rel="apple-touch-icon" href="/logo-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
