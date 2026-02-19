@@ -5,28 +5,32 @@ const benefits = [
     text: 'Kurzfristige Termine und priorisierte Hilfe bei akuten Ausfällen.',
     icon: 'bolt',
     titleKey: 'benefits.item1.title',
-    textKey: 'benefits.item1.text'
+    textKey: 'benefits.item1.text',
+    accent: 'from-amber-400 to-orange-500'
   },
   {
     title: 'Verständliche Kommunikation',
     text: 'Klare Empfehlungen ohne Fachjargon, damit Sie sicher entscheiden können.',
     icon: 'chat',
     titleKey: 'benefits.item2.title',
-    textKey: 'benefits.item2.text'
+    textKey: 'benefits.item2.text',
+    accent: 'from-violet-500 to-purple-600'
   },
   {
     title: 'Planbare Kosten',
     text: 'Transparente Preise und saubere Dokumentation aller Maßnahmen.',
     icon: 'wallet',
     titleKey: 'benefits.item3.title',
-    textKey: 'benefits.item3.text'
+    textKey: 'benefits.item3.text',
+    accent: 'from-emerald-500 to-teal-600'
   },
   {
     title: 'Lokaler Ansprechpartner',
     text: 'Persönliche Betreuung statt anonymer Hotline.',
     icon: 'pin',
     titleKey: 'benefits.item4.title',
-    textKey: 'benefits.item4.text'
+    textKey: 'benefits.item4.text',
+    accent: 'from-accent-500 to-accent-700'
   }
 ];
 ---
@@ -38,23 +42,24 @@ const benefits = [
       <div class="mt-8 grid gap-4 md:grid-cols-2">
         {
           benefits.map((benefit) => (
-            <article class="card card-glow p-5 transition hover:-translate-y-0.5 hover:border-accent-200">
-              <span class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-100 text-accent-700">
+            <article class="card card-glow relative overflow-hidden p-6 transition hover:-translate-y-0.5 hover:border-accent-200">
+              <div class={`absolute left-0 top-0 h-1 w-full bg-gradient-to-r ${benefit.accent} opacity-85`}></div>
+              <span class={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${benefit.accent} text-white shadow-sm`}>
                 {
-                  benefit.icon === 'bolt' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>
+                  benefit.icon === 'bolt' && <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true"><path fill="currentColor" d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>
                 }
                 {
-                  benefit.icon === 'chat' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M4 4h16v12H7l-3 3zm3 4v2h10V8zm0 4v2h7v-2z"/></svg>
+                  benefit.icon === 'chat' && <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true"><path fill="currentColor" d="M4 4h16v12H7l-3 3zm3 4v2h10V8zm0 4v2h7v-2z"/></svg>
                 }
                 {
-                  benefit.icon === 'wallet' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M3 6h16a2 2 0 012 2v8a2 2 0 01-2 2H3zm13 6h3v2h-3zM3 4h13v2H3z"/></svg>
+                  benefit.icon === 'wallet' && <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true"><path fill="currentColor" d="M3 6h16a2 2 0 012 2v8a2 2 0 01-2 2H3zm13 6h3v2h-3zM3 4h13v2H3z"/></svg>
                 }
                 {
-                  benefit.icon === 'pin' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7m0 4a3 3 0 100 6 3 3 0 000-6"/></svg>
+                  benefit.icon === 'pin' && <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7m0 4a3 3 0 100 6 3 3 0 000-6"/></svg>
                 }
               </span>
-              <h3 class="text-xl font-semibold" data-i18n={benefit.titleKey}>{benefit.title}</h3>
-              <p class="mt-2 text-slate-700" data-i18n={benefit.textKey}>{benefit.text}</p>
+              <h3 class="text-xl font-bold" data-i18n={benefit.titleKey}>{benefit.title}</h3>
+              <p class="mt-2 leading-relaxed text-slate-700" data-i18n={benefit.textKey}>{benefit.text}</p>
             </article>
           ))
         }
