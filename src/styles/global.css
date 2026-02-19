@@ -41,6 +41,10 @@ body {
   @apply border-accent-100 shadow-glow;
 }
 
+.hero-card-bg {
+  @apply bg-gradient-to-br from-white via-cyan-50 to-slate-100;
+}
+
 .focus-ring {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2;
 }
@@ -146,6 +150,10 @@ html.theme-dark .card {
   background-color: rgba(8, 14, 28, 0.95);
   background-image: linear-gradient(145deg, rgba(8, 14, 28, 0.97) 0%, rgba(11, 19, 38, 0.98) 52%, rgba(11, 34, 48, 0.96) 100%);
   box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.75);
+}
+
+html.theme-dark .hero-card-bg {
+  background-image: linear-gradient(145deg, rgba(7, 12, 24, 0.74) 0%, rgba(10, 31, 46, 0.56) 48%, rgba(7, 20, 33, 0.82) 100%);
 }
 
 html.theme-dark .bg-white,
