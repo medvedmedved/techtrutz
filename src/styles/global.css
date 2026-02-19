@@ -73,7 +73,8 @@ body {
 }
 
 .logo-wordmark-nav {
-  height: 5.65rem;
+  height: 6.8rem;
+  max-width: min(58vw, 22rem);
 }
 
 .logo-wordmark-footer {
@@ -147,6 +148,11 @@ h3 {
 }
 
 @media (max-width: 768px) {
+  .logo-wordmark-nav {
+    height: 5rem;
+    max-width: min(72vw, 18rem);
+  }
+
   .hero-card-bg::after {
     background-position: right 0.9rem top 1.2rem;
     background-size: min(58%, 13.8rem);
