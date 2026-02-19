@@ -9,32 +9,39 @@ const links = [
 const pathname = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
-  <div class="container-page flex h-20 items-center justify-between">
+<header class="sticky top-0 z-50 border-b border-slate-200/60 bg-white/90 shadow-sm backdrop-blur-md">
+  <div class="container-page flex h-18 items-center justify-between py-3">
     <a class="focus-ring inline-flex items-center rounded-xl" href="/" aria-label="TechTrutz Startseite">
       <img src="/logo1.png" alt="" class="logo-wordmark logo-wordmark-nav" loading="eager" decoding="async" aria-hidden="true" />
       <span class="sr-only">TechTrutz</span>
     </a>
 
+    <!-- Mobile hamburger -->
     <button
       id="mobile-menu-button"
-      class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-800 md:hidden"
+      class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-50 md:hidden"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="Navigationsmenü öffnen"
       type="button"
-      data-i18n="nav.menu"
     >
-      Menü
+      <svg id="menu-icon-bars" viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true">
+        <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>
+      </svg>
+      <svg id="menu-icon-x" viewBox="0 0 24 24" class="hidden h-5 w-5" aria-hidden="true">
+        <path fill="currentColor" d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </button>
 
-    <nav aria-label="Hauptnavigation" class="hidden items-center gap-4 md:flex">
+    <nav aria-label="Hauptnavigation" class="hidden items-center gap-1 md:flex">
       {
         links.map((link) => (
           <a
             href={link.href}
-            class={`focus-ring rounded text-sm font-medium ${
-              pathname === link.href ? 'text-accent-700' : 'text-slate-700 hover:text-accent-700'
+            class={`focus-ring relative rounded-lg px-3 py-2 text-sm font-medium transition ${
+              pathname === link.href
+                ? 'text-accent-700 bg-accent-50'
+                : 'text-slate-700 hover:text-accent-700 hover:bg-slate-50'
             }`}
             aria-current={pathname === link.href ? 'page' : undefined}
             data-i18n={link.key}
@@ -43,37 +50,40 @@ const pathname = Astro.url.pathname;
           </a>
         ))
       }
-      <div class="flex items-center gap-2">
-        <div class="inline-flex items-center rounded-lg border border-slate-300 p-1">
-          <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="de">DE</button>
-          <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="ru">RU</button>
-          <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="en">EN</button>
+
+      <div class="ml-2 flex items-center gap-2">
+        <div class="inline-flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5">
+          <button class="focus-ring rounded-md px-2.5 py-1 text-xs font-bold text-slate-600 transition hover:bg-white hover:text-slate-900" type="button" data-lang="de">DE</button>
+          <button class="focus-ring rounded-md px-2.5 py-1 text-xs font-bold text-slate-600 transition hover:bg-white hover:text-slate-900" type="button" data-lang="ru">RU</button>
+          <button class="focus-ring rounded-md px-2.5 py-1 text-xs font-bold text-slate-600 transition hover:bg-white hover:text-slate-900" type="button" data-lang="en">EN</button>
         </div>
         <button
           id="theme-toggle"
-          class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+          class="focus-ring inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition hover:bg-slate-50"
           type="button"
-          data-i18n="theme.toggle"
+          aria-label="Farbschema wechseln"
           data-theme-button
         >
-          Dark
+          <svg viewBox="0 0 24 24" class="h-4 w-4 theme-icon-dark" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 000 18 9 9 0 010-18zM10 5.1A7 7 0 1110 18.9V5.1z"/></svg>
         </button>
       </div>
-      <a href="/kontakt" class="focus-ring rounded-lg bg-ink-900 px-3 py-2 text-sm font-semibold text-white hover:bg-ink-800" data-i18n="nav.cta">Anfrage starten</a>
+      <a href="/kontakt" class="btn-primary focus-ring ml-1 !py-2.5 !text-xs" data-i18n="nav.cta">Anfrage starten</a>
     </nav>
   </div>
 
   <nav
     id="mobile-menu"
     aria-label="Mobile Navigation"
-    class="container-page hidden flex-col gap-3 border-t border-slate-200 py-4 md:hidden"
+    class="container-page hidden flex-col gap-1 border-t border-slate-200 py-3 md:hidden"
   >
     {
       links.map((link) => (
         <a
           href={link.href}
-          class={`focus-ring rounded px-2 py-1 text-base font-medium ${
-            pathname === link.href ? 'text-accent-700' : 'text-slate-700 hover:text-accent-700'
+          class={`focus-ring rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+            pathname === link.href
+              ? 'bg-accent-50 text-accent-700'
+              : 'text-slate-700 hover:bg-slate-50 hover:text-accent-700'
           }`}
           aria-current={pathname === link.href ? 'page' : undefined}
           data-i18n={link.key}
@@ -83,19 +93,27 @@ const pathname = Astro.url.pathname;
       ))
     }
     <div class="mt-2 flex items-center gap-2 border-t border-slate-200 pt-3">
-      <div class="inline-flex items-center rounded-lg border border-slate-300 p-1">
-        <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="de">DE</button>
-        <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="ru">RU</button>
-        <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="en">EN</button>
+      <div class="inline-flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5">
+        <button class="focus-ring rounded-md px-2.5 py-1 text-xs font-bold text-slate-600 transition hover:bg-white hover:text-slate-900" type="button" data-lang="de">DE</button>
+        <button class="focus-ring rounded-md px-2.5 py-1 text-xs font-bold text-slate-600 transition hover:bg-white hover:text-slate-900" type="button" data-lang="ru">RU</button>
+        <button class="focus-ring rounded-md px-2.5 py-1 text-xs font-bold text-slate-600 transition hover:bg-white hover:text-slate-900" type="button" data-lang="en">EN</button>
       </div>
       <button
-        class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+        class="focus-ring inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition hover:bg-slate-50"
         type="button"
-        data-i18n="theme.toggle"
+        aria-label="Farbschema wechseln"
         data-theme-button
       >
-        Dark
+        <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 000 18 9 9 0 010-18zM10 5.1A7 7 0 1110 18.9V5.1z"/></svg>
       </button>
     </div>
   </nav>
 </header>
+
+<style>
+  /* Hamburger icon toggle via aria-expanded */
+  #mobile-menu-button[aria-expanded="true"] #menu-icon-bars { display: none; }
+  #mobile-menu-button[aria-expanded="true"] #menu-icon-x { display: block; }
+  /* Theme icon in dark mode */
+  html.theme-dark .theme-icon-dark { opacity: 0.9; }
+</style>

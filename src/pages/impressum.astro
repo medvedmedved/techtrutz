@@ -9,44 +9,109 @@ import { site } from '../data/site';
   path="/impressum"
 >
   <section class="container-page py-16">
-    <h1 class="text-4xl font-extrabold text-slate-900 sm:text-5xl">Impressum</h1>
-    <article class="card mt-8 p-7 text-slate-800">
-      <h2 class="text-2xl font-bold text-slate-900">Angaben gemäß §5 TMG</h2>
-      <p class="mt-4 font-semibold">{site.name}</p>
-      <p>{site.address.street}</p>
-      <p>{site.address.zip} {site.address.city}</p>
-      <p>{site.address.country}</p>
 
-      <h2 class="mt-8 text-2xl font-bold text-slate-900">Kontakt</h2>
-      <p class="mt-4">Telefon: {site.phone}</p>
-      <p>E-Mail: {site.email}</p>
+    <div class="card card-glow relative overflow-hidden p-8 sm:p-10">
+      <div class="pointer-events-none absolute right-0 top-0 -z-10 h-48 w-48 rounded-bl-full bg-gradient-to-bl from-accent-100/60 to-transparent"></div>
+      <h1 class="text-4xl font-bold sm:text-5xl">Impressum</h1>
+      <p class="mt-3 text-slate-600">Pflichtangaben gemäß §5 TMG (Telemediengesetz)</p>
+    </div>
 
-      <h2 class="mt-8 text-2xl font-bold text-slate-900">Umsatzsteuer-ID</h2>
-      <p class="mt-4">Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz: {site.ustId}</p>
+    <article class="card mt-6 divide-y divide-slate-100 p-7 text-slate-700 sm:p-8">
 
-      <h2 class="mt-8 text-2xl font-bold text-slate-900">Verantwortlich für den Inhalt nach §55 Abs. 2 RStV</h2>
-      <p class="mt-4">[Vorname Nachname]</p>
-      <p>{site.address.street}</p>
-      <p>{site.address.zip} {site.address.city}</p>
+      <!-- Angaben zum Unternehmen -->
+      <div class="pb-7">
+        <h2 class="text-xl font-bold text-ink-900">Angaben gemäß §5 TMG</h2>
+        <div class="mt-4 space-y-0.5">
+          <p><span class="font-semibold text-slate-800">{site.name}</span></p>
+          <p>Inhaber: {site.owner}</p>
+          <p class="mt-1 text-sm text-slate-500">Einzelunternehmen (Kleingewerbe, nebenberuflich)</p>
+        </div>
+        <div class="mt-4 space-y-0.5">
+          <p>{site.address.street}</p>
+          <p>{site.address.zip} {site.address.city}</p>
+          <p>{site.address.country}</p>
+        </div>
+      </div>
 
-      <h2 class="mt-8 text-2xl font-bold text-slate-900">Haftung für Inhalte</h2>
-      <p class="mt-4">
-        Als Diensteanbieter sind wir gemäß §7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
-        Nach §§8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu
-        überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
-      </p>
+      <!-- Kontakt -->
+      <div class="py-7">
+        <h2 class="text-xl font-bold text-ink-900">Kontakt</h2>
+        <div class="mt-4 space-y-1.5">
+          <p>
+            Telefon:&nbsp;
+            <a class="focus-ring rounded font-semibold text-accent-700 hover:text-accent-600 transition" href={`tel:${site.phone.replace(/\s+/g, '')}`}>{site.phone}</a>
+          </p>
+          <p>
+            E-Mail:&nbsp;
+            <a class="focus-ring rounded font-semibold text-accent-700 hover:text-accent-600 transition" href={`mailto:${site.email}`}>{site.email}</a>
+          </p>
+        </div>
+      </div>
 
-      <h2 class="mt-8 text-2xl font-bold text-slate-900">Haftung für Links</h2>
-      <p class="mt-4">
-        Unser Angebot enthält ggf. Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für
-        diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.
-      </p>
+      <!-- Umsatzsteuer -->
+      <div class="py-7">
+        <h2 class="text-xl font-bold text-ink-900">Umsatzsteuer-Identifikationsnummer</h2>
+        <p class="mt-3">
+          Gemäß §27a Umsatzsteuergesetz (UStG):<br />
+          <span class="font-semibold text-slate-800">{site.ustId}</span>
+        </p>
+        <p class="mt-2 text-sm text-slate-500">
+          Es handelt sich nicht um ein Unternehmen gemäß §19 UStG (Kleinunternehmerregelung). Auf Rechnungen wird Umsatzsteuer ausgewiesen.
+        </p>
+      </div>
 
-      <h2 class="mt-8 text-2xl font-bold text-slate-900">Urheberrecht</h2>
-      <p class="mt-4">
-        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Beiträge Dritter
-        sind als solche gekennzeichnet.
-      </p>
+      <!-- Verantwortlichkeit -->
+      <div class="py-7">
+        <h2 class="text-xl font-bold text-ink-900">Verantwortlich für den Inhalt nach §18 Abs. 2 MStV</h2>
+        <div class="mt-3 space-y-0.5">
+          <p>{site.owner}</p>
+          <p>{site.address.street}</p>
+          <p>{site.address.zip} {site.address.city}</p>
+        </div>
+      </div>
+
+      <!-- Gewerbeanmeldung -->
+      <div class="py-7">
+        <h2 class="text-xl font-bold text-ink-900">Gewerbeanmeldung</h2>
+        <p class="mt-3">
+          Das Gewerbe wurde bei der zuständigen Gemeindeverwaltung angemeldet. Eine Eintragung im Handelsregister besteht nicht,
+          da es sich um ein Kleingewerbe handelt (§1 HGB nicht erfüllt).
+        </p>
+      </div>
+
+      <!-- Haftung für Inhalte -->
+      <div class="py-7">
+        <h2 class="text-xl font-bold text-ink-900">Haftung für Inhalte</h2>
+        <p class="mt-3">
+          Als Diensteanbieter sind wir gemäß §7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+          Nach §§8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu
+          überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder
+          Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist
+          jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich.
+        </p>
+      </div>
+
+      <!-- Haftung für Links -->
+      <div class="py-7">
+        <h2 class="text-xl font-bold text-ink-900">Haftung für Links</h2>
+        <p class="mt-3">
+          Unser Angebot enthält ggf. Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für
+          diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder
+          Betreiber der Seiten verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.
+        </p>
+      </div>
+
+      <!-- Urheberrecht -->
+      <div class="pt-7">
+        <h2 class="text-xl font-bold text-ink-900">Urheberrecht</h2>
+        <p class="mt-3">
+          Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht.
+          Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen
+          der schriftlichen Zustimmung des jeweiligen Autors. Downloads und Kopien dieser Seite sind nur für den privaten, nicht
+          kommerziellen Gebrauch gestattet.
+        </p>
+      </div>
+
     </article>
   </section>
 </BaseLayout>

@@ -1,6 +1,43 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
+
+const stats = [
+  { value: '24h', label: 'Reaktionszeit', icon: 'clock', color: 'from-amber-400 to-orange-500' },
+  { value: '100%', label: 'Lokaler Service', icon: 'pin', color: 'from-accent-400 to-accent-600' },
+  { value: 'KMU', label: 'Zielgruppe', icon: 'people', color: 'from-violet-400 to-purple-600' },
+];
+
+const values = [
+  {
+    title: 'Unser Anspruch',
+    text: 'Wir lösen IT-Probleme pragmatisch und nachhaltig. Statt unnötiger Komplexität erhalten Sie klare Empfehlungen, die zu Ihrem Alltag und Budget passen.',
+    icon: 'shield',
+    color: 'from-accent-500 to-accent-700',
+    key: 'page.about.block1'
+  },
+  {
+    title: 'Unsere Arbeitsweise',
+    text: 'Transparente Kommunikation, dokumentierte Schritte und ein fester Ansprechpartner. So behalten Sie jederzeit den Überblick über Technik, Kosten und nächste Maßnahmen.',
+    icon: 'chat',
+    color: 'from-emerald-500 to-teal-600',
+    key: 'page.about.block2'
+  },
+  {
+    title: 'Für wen wir arbeiten',
+    text: 'Privatpersonen, Selbstständige und kleine Unternehmen, die verlässliche IT-Unterstützung suchen: von spontaner Hilfe bis zur langfristigen Betreuung.',
+    icon: 'people',
+    color: 'from-violet-500 to-purple-600',
+    key: 'page.about.block3'
+  },
+  {
+    title: 'Faire Preise',
+    text: 'Keine versteckten Kosten. Vor jedem Auftrag besprechen wir Umfang und Preis — damit Sie genau wissen, worauf Sie sich einlassen.',
+    icon: 'wallet',
+    color: 'from-amber-400 to-orange-500',
+    key: 'page.about.block4'
+  },
+];
 ---
 
 <BaseLayout
@@ -9,41 +46,108 @@ import { site } from '../data/site';
   path="/ueber-uns"
 >
   <section class="container-page py-16">
-    <div class="card card-glow p-7 sm:p-10">
+
+    <!-- Page hero -->
+    <div class="card card-glow relative overflow-hidden p-8 sm:p-12">
+      <div class="pointer-events-none absolute right-0 top-0 -z-10 h-64 w-64 rounded-bl-full bg-gradient-to-bl from-accent-100/60 to-transparent"></div>
+      <span class="mb-5 inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-accent-700">
+        <span class="h-2 w-2 rounded-full bg-accent-500 animate-pulse-slow"></span>
+        <span>Ihr IT-Partner</span>
+      </span>
       <h1 class="text-4xl font-bold sm:text-5xl" data-i18n="page.about.title">Über TechTrutz</h1>
-      <p class="mt-4 max-w-3xl text-lg text-slate-700" data-i18n="page.about.text">
+      <p class="mt-4 max-w-2xl text-lg text-slate-600" data-i18n="page.about.text">
         Wir verbinden schnelle Hilfe im Tagesgeschäft mit einer langfristig stabilen IT-Basis.
       </p>
     </div>
-    <div class="mt-8 grid gap-6 lg:grid-cols-2">
-      <article class="card p-7">
-        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-100 text-accent-700">
-          <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M12 2l8 4v6c0 5-3.4 9.7-8 11-4.6-1.3-8-6-8-11V6z"/></svg>
-        </span>
-        <h2 class="mt-4 text-2xl font-bold" data-i18n="page.about.block1.title">Unser Anspruch</h2>
-        <p class="mt-3 text-slate-700" data-i18n="page.about.block1.text">
-          Wir lösen IT-Probleme pragmatisch und nachhaltig. Statt unnötiger Komplexität erhalten Sie klare Empfehlungen, die zu Ihrem Alltag und Budget passen.
-        </p>
-      </article>
-      <article class="card p-7">
-        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-100 text-accent-700">
-          <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M4 4h16v12H7l-3 3zm3 4v2h10V8zm0 4v2h7v-2z"/></svg>
-        </span>
-        <h2 class="mt-4 text-2xl font-bold" data-i18n="page.about.block2.title">Unsere Arbeitsweise</h2>
-        <p class="mt-3 text-slate-700" data-i18n="page.about.block2.text">
-          Transparente Kommunikation, dokumentierte Schritte und ein fester Ansprechpartner. So behalten Sie jederzeit den Überblick über Technik, Kosten und nächste Maßnahmen.
-        </p>
-      </article>
+
+    <!-- Stats row -->
+    <div class="mt-6 grid gap-4 sm:grid-cols-3">
+      {stats.map((stat) => (
+        <div class="card flex items-center gap-4 p-5">
+          <span class={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${stat.color} text-white shadow-glow`}>
+            {stat.icon === 'clock' && (
+              <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+                <path fill="currentColor" d="M12 1a11 11 0 1011 11A11 11 0 0012 1m1 11.6V6h-2v8h6v-2z"/>
+              </svg>
+            )}
+            {stat.icon === 'pin' && (
+              <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+                <path fill="currentColor" d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7m0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5"/>
+              </svg>
+            )}
+            {stat.icon === 'people' && (
+              <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+                <path fill="currentColor" d="M16 11a4 4 0 10-4-4 4 4 0 004 4M8 12a3 3 0 10-3-3 3 3 0 003 3m0 2c-2.7 0-5 1.3-5 3v1h10v-1c0-1.7-2.3-3-5-3m8 0a6 6 0 00-1 .1c1.2.9 2 2 2 3.4v.5h6V17c0-1.8-3.1-3-7-3"/>
+              </svg>
+            )}
+          </span>
+          <div>
+            <p class="text-2xl font-black text-ink-900">{stat.value}</p>
+            <p class="text-sm text-slate-500">{stat.label}</p>
+          </div>
+        </div>
+      ))}
     </div>
 
-    <article class="card mt-6 p-7">
-      <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-100 text-accent-700">
-        <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M16 11a4 4 0 10-4-4 4 4 0 004 4M8 12a3 3 0 10-3-3 3 3 0 003 3m0 2c-2.7 0-5 1.3-5 3v1h10v-1c0-1.7-2.3-3-5-3m8 0a6 6 0 00-1 .1c1.2.9 2 2 2 3.4v.5h6V17c0-1.8-3.1-3-7-3"/></svg>
-      </span>
-      <h2 class="mt-4 text-2xl font-bold" data-i18n="page.about.block3.title">Für wen wir arbeiten</h2>
-      <p class="mt-3 text-slate-700" data-i18n="page.about.block3.text">
-        Privatpersonen, Selbstständige und kleine Unternehmen, die verlässliche IT-Unterstützung suchen: von spontaner Hilfe bis zur langfristigen Betreuung.
-      </p>
-    </article>
+    <!-- Mission statement -->
+    <div class="mt-6 rounded-2xl border border-accent-200 bg-gradient-to-r from-accent-50 to-cyan-50 p-6 sm:p-8">
+      <div class="flex items-start gap-4">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-accent-700 shadow">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+        </span>
+        <div>
+          <p class="font-bold text-accent-800">Unsere Mission</p>
+          <p class="mt-1 text-slate-700 leading-relaxed">
+            Technik soll Menschen entlasten — nicht überfordern. Deshalb übersetzen wir komplexe IT-Themen in verständliche Handlungen und begleiten Sie langfristig auf Augenhöhe.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Values grid -->
+    <div class="mt-6 grid gap-5 sm:grid-cols-2">
+      {values.map((value) => (
+        <article class="card relative overflow-hidden p-6">
+          <div class={`absolute left-0 top-0 h-0.5 w-full bg-gradient-to-r ${value.color}`}></div>
+          <span class={`inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${value.color} text-white shadow-glow`}>
+            {value.icon === 'shield' && (
+              <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+                <path fill="currentColor" d="M12 2l8 4v6c0 5-3.4 9.7-8 11-4.6-1.3-8-6-8-11V6zm0 2.2L6 7v5c0 4.1 2.7 7.9 6 9 3.3-1.1 6-4.9 6-9V7zm3 5.8l-4 4-2-2-1.4 1.4L11 17l5.4-5.4z"/>
+              </svg>
+            )}
+            {value.icon === 'chat' && (
+              <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+                <path fill="currentColor" d="M4 4h16v12H7l-3 3zm3 4v2h10V8zm0 4v2h7v-2z"/>
+              </svg>
+            )}
+            {value.icon === 'people' && (
+              <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+                <path fill="currentColor" d="M16 11a4 4 0 10-4-4 4 4 0 004 4M8 12a3 3 0 10-3-3 3 3 0 003 3m0 2c-2.7 0-5 1.3-5 3v1h10v-1c0-1.7-2.3-3-5-3m8 0a6 6 0 00-1 .1c1.2.9 2 2 2 3.4v.5h6V17c0-1.8-3.1-3-7-3"/>
+              </svg>
+            )}
+            {value.icon === 'wallet' && (
+              <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+                <path fill="currentColor" d="M21 7H3a2 2 0 00-2 2v10a2 2 0 002 2h18a2 2 0 002-2V9a2 2 0 00-2-2zm-1 12H4V10h16v9zm-2-5a2 2 0 11-4 0 2 2 0 014 0zM3 5h18V3H3z"/>
+              </svg>
+            )}
+          </span>
+          <h2 class="mt-4 text-xl font-bold" data-i18n={`${value.key}.title`}>{value.title}</h2>
+          <p class="mt-2 text-slate-600 leading-relaxed" data-i18n={`${value.key}.text`}>{value.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <!-- Closing CTA -->
+    <div class="mt-8 card p-7 sm:p-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h2 class="text-2xl font-bold">Bereit für zuverlässige IT?</h2>
+        <p class="mt-1 text-slate-600">Lernen Sie uns kennen — unverbindlich und kostenlos.</p>
+      </div>
+      <a href="/kontakt" class="btn-primary shrink-0 focus-ring">
+        <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true"><path fill="currentColor" d="M3 5h18v14H3zm2 2v.5l7 4 7-4V7l-7 4z"/></svg>
+        <span>Kontakt aufnehmen</span>
+      </a>
+    </div>
+
   </section>
 </BaseLayout>
