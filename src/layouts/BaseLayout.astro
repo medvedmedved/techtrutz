@@ -391,8 +391,6 @@ const websiteLd = {
           }
         };
 
-        const labels = { de: 'Hell/Dunkel', ru: 'Свет/Тьма', en: 'Light/Dark' };
-
         const applyLanguage = (lang) => {
           const dict = translations[lang] || translations.de;
           document.documentElement.setAttribute('lang', lang);
@@ -404,9 +402,6 @@ const websiteLd = {
             const key = el.getAttribute('data-i18n-placeholder');
             if (key && dict[key]) el.setAttribute('placeholder', dict[key]);
           });
-          document.querySelectorAll('[data-theme-button]').forEach((btn) => {
-            btn.textContent = labels[lang];
-          });
           document.querySelectorAll('[data-lang]').forEach((btn) => {
             const active = btn.getAttribute('data-lang') === lang;
             btn.classList.toggle('bg-ink-900', active);
@@ -414,8 +409,20 @@ const websiteLd = {
           });
         };
 
+        const applyThemeLogos = (theme) => {
+          document.querySelectorAll('[data-theme-logo]').forEach((img) => {
+            const lightSrc = img.getAttribute('data-logo-light');
+            const darkSrc = img.getAttribute('data-logo-dark');
+            const next = theme === 'dark' ? darkSrc : lightSrc;
+            if (next && img.getAttribute('src') !== next) {
+              img.setAttribute('src', next);
+            }
+          });
+        };
+
         const applyTheme = (theme) => {
           document.documentElement.classList.toggle('theme-dark', theme === 'dark');
+          applyThemeLogos(theme);
           localStorage.setItem('techtrutz-theme', theme);
         };
 
@@ -455,6 +462,8 @@ const websiteLd = {
         }
 
         const lang = localStorage.getItem('techtrutz-lang') || 'de';
+        const initialTheme = document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light';
+        applyThemeLogos(initialTheme);
         applyLanguage(lang);
 
         document.querySelectorAll('[data-lang]').forEach((btn) => {
