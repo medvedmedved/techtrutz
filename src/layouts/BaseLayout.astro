@@ -427,7 +427,6 @@ const websiteLd = {
             menu.classList.remove('flex');
             menu.classList.add('hidden');
             menu.setAttribute('data-open', 'false');
-            document.body.classList.remove('mobile-menu-open');
           };
 
           const openMenu = () => {
@@ -435,7 +434,6 @@ const websiteLd = {
             menu.classList.remove('hidden');
             menu.classList.add('flex');
             menu.setAttribute('data-open', 'true');
-            document.body.classList.add('mobile-menu-open');
           };
 
           menuButton.addEventListener('click', () => {
