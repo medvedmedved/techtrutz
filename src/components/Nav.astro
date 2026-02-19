@@ -7,12 +7,6 @@ const links = [
 ];
 
 const pathname = Astro.url.pathname;
-const mobileArcLayout = [
-  { angle: '-168deg', radius: '8.55rem' },
-  { angle: '-128deg', radius: '8.05rem' },
-  { angle: '-88deg', radius: '8.05rem' },
-  { angle: '-48deg', radius: '8.55rem' }
-];
 ---
 
 <header class="site-header sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
@@ -34,22 +28,39 @@ const mobileArcLayout = [
       <span class="sr-only">TechTrutz</span>
     </a>
 
-    <button
-      id="mobile-menu-button"
-      class="site-mobile-menu-button focus-ring rounded-full border border-slate-300 px-3 py-2 text-sm font-medium text-slate-800 md:hidden"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label="Navigationsmenü öffnen"
-      type="button"
-    >
-      <svg class="menu-icon-bars h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
-      </svg>
-      <svg class="menu-icon-close hidden h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="currentColor" d="M6.7 5.3L5.3 6.7 10.6 12l-5.3 5.3 1.4 1.4 5.3-5.3 5.3 5.3 1.4-1.4-5.3-5.3 5.3-5.3-1.4-1.4-5.3 5.3z" />
-      </svg>
-      <span class="sr-only" data-i18n="nav.menu">Menü</span>
-    </button>
+    <div class="mobile-header-actions md:hidden">
+      <button
+        class="theme-icon-button focus-ring rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100"
+        type="button"
+        aria-label="Farbschema wechseln"
+        data-theme-button
+      >
+        <svg class="theme-icon-moon h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12.8 3a8.7 8.7 0 100 17.4 9 9 0 01-5.3-8.7A9 9 0 0112.8 3z" />
+        </svg>
+        <svg class="theme-icon-sun h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 4a1 1 0 011 1v1.2a1 1 0 11-2 0V5a1 1 0 011-1m0 12.8a1 1 0 011 1V19a1 1 0 11-2 0v-1.2a1 1 0 011-1M4 11a1 1 0 100 2h1.2a1 1 0 100-2H4m14.8 0a1 1 0 100 2H20a1 1 0 100-2h-1.2M6.3 6.3a1 1 0 011.4 0l.8.8a1 1 0 01-1.4 1.4l-.8-.8a1 1 0 010-1.4m9.2 9.2a1 1 0 011.4 0l.8.8a1 1 0 11-1.4 1.4l-.8-.8a1 1 0 010-1.4M6.3 17.7a1 1 0 010-1.4l.8-.8a1 1 0 011.4 1.4l-.8.8a1 1 0 01-1.4 0m9.2-9.2a1 1 0 010-1.4l.8-.8a1 1 0 011.4 1.4l-.8.8a1 1 0 01-1.4 0M12 8a4 4 0 100 8 4 4 0 000-8z" />
+        </svg>
+        <span class="sr-only" data-i18n="theme.toggle">Dark</span>
+      </button>
+
+      <button
+        id="mobile-menu-button"
+        class="site-mobile-menu-button focus-ring rounded-full border border-slate-300 px-3 py-2 text-sm font-medium text-slate-800"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Navigationsmenü öffnen"
+        type="button"
+      >
+        <svg class="menu-icon-bars h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+        </svg>
+        <svg class="menu-icon-close hidden h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M6.7 5.3L5.3 6.7 10.6 12l-5.3 5.3 1.4 1.4 5.3-5.3 5.3 5.3 1.4-1.4-5.3-5.3 5.3-5.3-1.4-1.4-5.3 5.3z" />
+        </svg>
+        <span class="sr-only" data-i18n="nav.menu">Menü</span>
+      </button>
+    </div>
 
     <nav aria-label="Hauptnavigation" class="hidden items-center gap-4 md:flex">
       {
@@ -100,24 +111,23 @@ const mobileArcLayout = [
   >
     <div class="container-page py-4">
       <div class="site-mobile-menu-panel">
-        <div class="site-mobile-arc-menu">
-          {
-            links.map((link, index) => (
-              <a
-                href={link.href}
-                class={`focus-ring mobile-arc-link ${
-                  pathname === link.href ? 'mobile-arc-link-active' : ''
-                }`}
-                aria-current={pathname === link.href ? 'page' : undefined}
-                data-i18n={link.key}
-                style={`--arc-angle: ${mobileArcLayout[index].angle}; --arc-radius: ${mobileArcLayout[index].radius}; --arc-delay: ${index * 85}ms; --arc-z: ${20 - index};`}
-              >
-                {link.label}
-              </a>
-            ))
-          }
-          <div class="site-mobile-arc-center" aria-hidden="true">
-            <span>TechTrutz</span>
+        <div class="site-mobile-wheel-wrap">
+          <div class="site-mobile-wheel" data-mobile-wheel>
+            {
+              links.map((link, index) => (
+                <a
+                  href={link.href}
+                  class={`focus-ring mobile-wheel-item ${
+                    pathname === link.href ? 'mobile-wheel-item-active' : ''
+                  }`}
+                  aria-current={pathname === link.href ? 'page' : undefined}
+                  data-i18n={link.key}
+                  style={`--wheel-delay: ${index * 80}ms;`}
+                >
+                  {link.label}
+                </a>
+              ))
+            }
           </div>
         </div>
 
@@ -127,23 +137,9 @@ const mobileArcLayout = [
             <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="ru" data-menu-close>RU</button>
             <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="en" data-menu-close>EN</button>
           </div>
-          <button
-            class="theme-icon-button focus-ring rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100"
-            type="button"
-            aria-label="Farbschema wechseln"
-            data-theme-button
-            data-menu-close
-          >
-            <svg class="theme-icon-moon h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M12.8 3a8.7 8.7 0 100 17.4 9 9 0 01-5.3-8.7A9 9 0 0112.8 3z" />
-            </svg>
-            <svg class="theme-icon-sun h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M12 4a1 1 0 011 1v1.2a1 1 0 11-2 0V5a1 1 0 011-1m0 12.8a1 1 0 011 1V19a1 1 0 11-2 0v-1.2a1 1 0 011-1M4 11a1 1 0 100 2h1.2a1 1 0 100-2H4m14.8 0a1 1 0 100 2H20a1 1 0 100-2h-1.2M6.3 6.3a1 1 0 011.4 0l.8.8a1 1 0 01-1.4 1.4l-.8-.8a1 1 0 010-1.4m9.2 9.2a1 1 0 011.4 0l.8.8a1 1 0 11-1.4 1.4l-.8-.8a1 1 0 010-1.4M6.3 17.7a1 1 0 010-1.4l.8-.8a1 1 0 011.4 1.4l-.8.8a1 1 0 01-1.4 0m9.2-9.2a1 1 0 010-1.4l.8-.8a1 1 0 011.4 1.4l-.8.8a1 1 0 01-1.4 0M12 8a4 4 0 100 8 4 4 0 000-8z" />
-            </svg>
-            <span class="sr-only" data-i18n="theme.toggle">Dark</span>
-          </button>
         </div>
-        <a href="/kontakt" class="focus-ring mt-3 inline-flex w-full items-center justify-center rounded-lg bg-ink-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-ink-800" data-i18n="nav.cta" data-menu-close>Anfrage starten</a>
+
+        <a href="/kontakt" class="focus-ring mt-2 inline-flex w-full items-center justify-center rounded-lg bg-ink-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-ink-800" data-i18n="nav.cta" data-menu-close>Anfrage starten</a>
       </div>
     </div>
   </nav>

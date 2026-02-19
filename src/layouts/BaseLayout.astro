@@ -429,6 +429,43 @@ const websiteLd = {
         const menuButton = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
         if (menuButton && menu) {
+          const mobileWheels = Array.from(menu.querySelectorAll('[data-mobile-wheel]'));
+
+          const updateWheelState = (wheel) => {
+            if (!wheel || wheel.clientHeight === 0) return;
+            const wheelRect = wheel.getBoundingClientRect();
+            const centerY = wheelRect.top + wheelRect.height / 2;
+            const radius = wheelRect.height * 0.48;
+
+            wheel.querySelectorAll('.mobile-wheel-item').forEach((item) => {
+              const itemRect = item.getBoundingClientRect();
+              const itemCenter = itemRect.top + itemRect.height / 2;
+              const dist = itemCenter - centerY;
+              const ratio = Math.min(Math.abs(dist) / radius, 1);
+              const rotate = Math.max(-26, Math.min(26, -dist / 4.4));
+              const scale = 1 - ratio * 0.24;
+              const offsetY = -Math.sign(dist || 1) * ratio * 3;
+
+              item.style.setProperty('--wheel-rotate', `${rotate.toFixed(2)}deg`);
+              item.style.setProperty('--wheel-scale', `${scale.toFixed(3)}`);
+              item.style.setProperty('--wheel-y', `${offsetY.toFixed(2)}px`);
+            });
+          };
+
+          const centerWheelActive = (wheel) => {
+            const active = wheel.querySelector('[aria-current=\"page\"]') || wheel.querySelector('.mobile-wheel-item');
+            if (!active) return;
+            const nextTop = active.offsetTop - (wheel.clientHeight - active.clientHeight) / 2;
+            wheel.scrollTo({ top: Math.max(0, nextTop), behavior: 'auto' });
+          };
+
+          mobileWheels.forEach((wheel) => {
+            wheel.addEventListener('scroll', () => updateWheelState(wheel), { passive: true });
+          });
+          window.addEventListener('resize', () => {
+            mobileWheels.forEach((wheel) => updateWheelState(wheel));
+          });
+
           const closeMenu = () => {
             menuButton.setAttribute('aria-expanded', 'false');
             menu.classList.remove('flex');
@@ -441,6 +478,12 @@ const websiteLd = {
             menu.classList.remove('hidden');
             menu.classList.add('flex');
             menu.setAttribute('data-open', 'true');
+            requestAnimationFrame(() => {
+              mobileWheels.forEach((wheel) => {
+                centerWheelActive(wheel);
+                updateWheelState(wheel);
+              });
+            });
           };
 
           menuButton.addEventListener('click', () => {
