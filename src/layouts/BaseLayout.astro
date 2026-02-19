@@ -65,6 +65,8 @@ const websiteLd = {
     <link rel="apple-touch-icon" href="/logo-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" /></noscript>
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -119,7 +121,7 @@ const websiteLd = {
               'Diese Website nutzt nur technisch notwendige Cookies bzw. lokale Speicherung für Grundfunktionen. Es findet kein Tracking statt.',
             'cookie.ok': 'Verstanden',
             'hero.badge': 'IT-Service in Deutschland',
-            'hero.title': 'Moderne IT-Betreuung, die schnell reagiert und nachhaltig entlastet.',
+            'hero.title': 'Moderne IT-Betreuung, <span class="gradient-text">die schnell reagiert</span> und nachhaltig entlastet.',
             'hero.text': 'TechTrutz löst Störungen, baut stabile Systeme auf und hält Ihre Technik im Alltag zuverlässig am Laufen.',
             'hero.cta1': 'Kostenlose Erstberatung',
             'hero.cta2': 'Leistungen ansehen',
@@ -153,7 +155,7 @@ const websiteLd = {
             'process.item3.text': 'Einrichtung, Reparatur oder Optimierung erfolgt sauber und effizient.',
             'process.item4.title': '4. Betreuung',
             'process.item4.text': 'Auf Wunsch übernehmen wir langfristigen Support und Wartung.',
-            'cta.title': 'IT-Probleme zügig lösen lassen',
+            'cta.title': 'IT-Probleme zügig <span class="gradient-text">lösen lassen</span>',
             'cta.text': 'Sichern Sie sich eine unverbindliche Erstberatung. Gemeinsam priorisieren wir Ihre nächsten Schritte.',
             'cta.cta1': 'Jetzt Kontakt aufnehmen',
             'cta.cta2': 'Telefonisch anfragen',
@@ -167,7 +169,10 @@ const websiteLd = {
             'page.about.block2.text': 'Transparente Kommunikation, dokumentierte Schritte und ein fester Ansprechpartner. So behalten Sie jederzeit den Überblick über Technik, Kosten und nächste Maßnahmen.',
             'page.about.block3.title': 'Für wen wir arbeiten',
             'page.about.block3.text': 'Privatpersonen, Selbstständige und kleine Unternehmen, die verlässliche IT-Unterstützung suchen: von spontaner Hilfe bis zur langfristigen Betreuung.',
-            'page.contact.title': 'Kontakt',
+            'page.about.block4.title': 'Faire Preise',
+            'page.about.block4.text': 'Keine versteckten Kosten. Vor jedem Auftrag besprechen wir Umfang und Preis — damit Sie genau wissen, worauf Sie sich einlassen.',
+            'page.contact.badge': 'Kostenlose Erstberatung',
+            'page.contact.title': 'Kontakt aufnehmen',
             'page.contact.text': 'Schreiben Sie uns Ihr Anliegen. Wir melden uns schnellstmöglich mit einer passenden Lösung.',
             'page.contact.card1.title': 'Kontaktdaten',
             'page.contact.card2.title': 'Hinweis zur Kontaktaufnahme',
@@ -212,7 +217,7 @@ const websiteLd = {
               'Этот сайт использует только технически необходимые cookies или локальное хранилище для базовых функций. Трекинг не используется.',
             'cookie.ok': 'Понятно',
             'hero.badge': 'IT-сервис в Германии',
-            'hero.title': 'Современная IT-поддержка, которая быстро реагирует и снимает нагрузку.',
+            'hero.title': 'Современная IT-поддержка, <span class="gradient-text">которая быстро реагирует</span> и снимает нагрузку.',
             'hero.text': 'TechTrutz устраняет сбои, выстраивает стабильную инфраструктуру и поддерживает вашу технику в рабочем состоянии.',
             'hero.cta1': 'Бесплатная первая консультация',
             'hero.cta2': 'Смотреть услуги',
@@ -246,7 +251,7 @@ const websiteLd = {
             'process.item3.text': 'Настройка, ремонт или оптимизация выполняются аккуратно и эффективно.',
             'process.item4.title': '4. Поддержка',
             'process.item4.text': 'При необходимости берём на себя долгосрочное сопровождение и обслуживание.',
-            'cta.title': 'Решайте IT-проблемы быстрее',
+            'cta.title': 'Решайте IT-проблемы <span class="gradient-text">быстрее</span>',
             'cta.text': 'Получите бесплатную первичную консультацию. Вместе определим приоритетные шаги.',
             'cta.cta1': 'Связаться сейчас',
             'cta.cta2': 'Позвонить',
@@ -260,7 +265,10 @@ const websiteLd = {
             'page.about.block2.text': 'Прозрачная коммуникация, документированные шаги и закреплённый специалист. Вы всегда понимаете, что сделано и что дальше.',
             'page.about.block3.title': 'Для кого мы работаем',
             'page.about.block3.text': 'Для частных клиентов, самозанятых и малого бизнеса: от разовой помощи до долгосрочного сопровождения.',
-            'page.contact.title': 'Контакты',
+            'page.about.block4.title': 'Честные цены',
+            'page.about.block4.text': 'Никаких скрытых расходов. Перед каждым заказом обсуждаем объём и стоимость — чтобы вы точно знали, на что рассчитывать.',
+            'page.contact.badge': 'Бесплатная консультация',
+            'page.contact.title': 'Связаться с нами',
             'page.contact.text': 'Опишите вашу задачу. Мы быстро свяжемся и предложим подходящее решение.',
             'page.contact.card1.title': 'Контактные данные',
             'page.contact.card2.title': 'Примечание по обращению',
@@ -305,7 +313,7 @@ const websiteLd = {
               'This website uses only technically required cookies or local storage for core functions. No tracking is used.',
             'cookie.ok': 'Got it',
             'hero.badge': 'IT service in Germany',
-            'hero.title': 'Modern IT support that responds fast and reduces your workload.',
+            'hero.title': 'Modern IT support that <span class="gradient-text">responds fast</span> and reduces your workload.',
             'hero.text': 'TechTrutz resolves incidents, builds stable systems, and keeps your technology reliable day to day.',
             'hero.cta1': 'Free initial consultation',
             'hero.cta2': 'View services',
@@ -339,7 +347,7 @@ const websiteLd = {
             'process.item3.text': 'Setup, repair, or optimization is delivered cleanly and efficiently.',
             'process.item4.title': '4. Ongoing support',
             'process.item4.text': 'If needed, we provide long-term support and maintenance.',
-            'cta.title': 'Solve IT issues faster',
+            'cta.title': 'Solve IT issues <span class="gradient-text">faster</span>',
             'cta.text': 'Get a free initial consultation. Together we prioritize your next steps.',
             'cta.cta1': 'Contact now',
             'cta.cta2': 'Call us',
@@ -353,7 +361,10 @@ const websiteLd = {
             'page.about.block2.text': 'Transparent communication, documented steps, and one dedicated contact person keep you in control at all times.',
             'page.about.block3.title': 'Who we support',
             'page.about.block3.text': 'Private clients, freelancers, and small businesses: from one-time incidents to long-term support.',
-            'page.contact.title': 'Contact',
+            'page.about.block4.title': 'Fair prices',
+            'page.about.block4.text': 'No hidden costs. Before every job we agree on scope and price — so you know exactly what to expect.',
+            'page.contact.badge': 'Free initial consultation',
+            'page.contact.title': 'Get in touch',
             'page.contact.text': 'Tell us about your request. We will get back to you quickly with a suitable solution.',
             'page.contact.card1.title': 'Contact details',
             'page.contact.card2.title': 'Contact notice',
@@ -391,17 +402,19 @@ const websiteLd = {
             const key = el.getAttribute('data-i18n');
             if (key && dict[key]) el.textContent = dict[key];
           });
+          document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+            const key = el.getAttribute('data-i18n-html');
+            if (key && dict[key]) el.innerHTML = dict[key];
+          });
           document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
             const key = el.getAttribute('data-i18n-placeholder');
             if (key && dict[key]) el.setAttribute('placeholder', dict[key]);
           });
-          document.querySelectorAll('[data-theme-button]').forEach((btn) => {
-            btn.textContent = labels[lang];
-          });
           document.querySelectorAll('[data-lang]').forEach((btn) => {
             const active = btn.getAttribute('data-lang') === lang;
-            btn.classList.toggle('bg-ink-900', active);
-            btn.classList.toggle('text-white', active);
+            btn.classList.toggle('bg-white', active);
+            btn.classList.toggle('text-slate-900', active);
+            btn.classList.toggle('shadow-sm', active);
           });
         };
 
@@ -417,6 +430,12 @@ const websiteLd = {
             const expanded = menuButton.getAttribute('aria-expanded') === 'true';
             menuButton.setAttribute('aria-expanded', String(!expanded));
             menu.classList.toggle('hidden');
+            // Show flex when visible
+            if (!expanded) {
+              menu.classList.add('flex');
+            } else {
+              menu.classList.remove('flex');
+            }
           });
         }
 
@@ -437,6 +456,24 @@ const websiteLd = {
             applyTheme(next);
           });
         });
+
+        // Scroll reveal animation
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('visible');
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+          );
+          document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+        } else {
+          document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+        }
       })();
     </script>
   </body>

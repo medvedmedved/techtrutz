@@ -1,0 +1,1 @@
+const e=document.getElementById("cookie-notice"),t=document.getElementById("cookie-accept"),c="techtrutz-cookie-notice-v1";e&&t&&(localStorage.getItem(c)==="accepted"||e.classList.remove("hidden"),t.addEventListener("click",()=>{localStorage.setItem(c,"accepted"),e.classList.add("hidden")}));
