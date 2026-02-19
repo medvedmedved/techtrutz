@@ -33,13 +33,13 @@ const steps = [
 
 <section class="stack-panel z-40" aria-labelledby="process-heading">
   <div class="container-page stack-animate">
-    <div class="card p-8 sm:p-12">
+    <div class="card card-glow p-8 sm:p-12">
       <h2 id="process-heading" class="text-3xl font-bold sm:text-4xl" data-i18n="process.title">So läuft die Zusammenarbeit</h2>
       <ol class="mt-8 grid gap-4 md:grid-cols-2" aria-label="Ablauf">
         {
           steps.map((step) => (
-            <li class="card p-5">
-              <span class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-ink-900 text-white">
+            <li class="card card-glow p-5 transition hover:-translate-y-0.5 hover:border-accent-200">
+              <span class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent-100 text-accent-700">
                 {
                   step.icon === 'mail' && <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M3 6h18v12H3zm2 2v.5l7 4 7-4V8l-7 4z"/></svg>
                 }
