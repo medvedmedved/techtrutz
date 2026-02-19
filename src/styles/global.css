@@ -33,44 +33,43 @@ body {
 }
 
 .card {
-  @apply rounded-2xl border border-slate-200/80 bg-white/90 shadow-soft backdrop-blur-sm;
+  @apply rounded-2xl border border-accent-100 bg-white/90 shadow-glow backdrop-blur-sm;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(236, 254, 255, 0.9) 55%, rgba(241, 245, 249, 0.92) 100%);
 }
 
 .card-glow {
   @apply border-accent-100 shadow-glow;
 }
 
-.cta-card {
-  background: linear-gradient(145deg, #0b1020 0%, #111b34 55%, #0e2b3b 100%);
-  border-color: rgba(56, 189, 248, 0.24);
-  box-shadow: 0 28px 60px -34px rgba(2, 6, 23, 0.95);
-}
-
-.cta-card p {
-  color: #e7f2ff;
-}
-
-.cta-primary {
-  background: #ffffff;
-  color: #0b1020;
-}
-
-.cta-primary:hover {
-  background: #dff5ff;
-}
-
-.cta-secondary {
-  border-color: rgba(226, 232, 240, 0.9);
-  color: #f8fbff;
-  background: rgba(15, 23, 42, 0.22);
-}
-
-.cta-secondary:hover {
-  background: rgba(15, 23, 42, 0.5);
-}
-
 .focus-ring {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2;
+}
+
+.form-field {
+  @apply flex flex-col gap-2;
+}
+
+.form-label {
+  @apply text-sm font-semibold text-slate-800;
+}
+
+.form-input {
+  @apply w-full rounded-xl border border-slate-300 bg-white/95 px-4 py-3 text-sm text-slate-900 transition placeholder:text-slate-500;
+}
+
+.form-input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.25);
+  border-color: rgba(14, 116, 144, 0.7);
+}
+
+.form-check {
+  @apply flex items-start gap-3 rounded-xl border border-slate-200 bg-white/80 p-4 text-sm text-slate-700;
+}
+
+.form-submit {
+  @apply inline-flex items-center justify-center rounded-xl bg-ink-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-ink-800;
 }
 
 h1,
@@ -145,6 +144,7 @@ html.theme-dark body {
 html.theme-dark .card {
   border-color: rgba(71, 85, 105, 0.65);
   background-color: rgba(8, 14, 28, 0.95);
+  background-image: linear-gradient(145deg, rgba(8, 14, 28, 0.97) 0%, rgba(11, 19, 38, 0.98) 52%, rgba(11, 34, 48, 0.96) 100%);
   box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.75);
 }
 
@@ -159,8 +159,51 @@ html.theme-dark .bg-slate-50\/90 {
 
 html.theme-dark .text-slate-700,
 html.theme-dark .text-slate-800,
-html.theme-dark .text-slate-900 {
+html.theme-dark .text-slate-900,
+html.theme-dark .text-slate-100,
+html.theme-dark .text-ink-800,
+html.theme-dark .text-ink-900,
+html.theme-dark .text-accent-600,
+html.theme-dark .text-accent-700 {
   color: #eef4ff !important;
+}
+
+html.theme-dark h1,
+html.theme-dark h2,
+html.theme-dark h3,
+html.theme-dark h4,
+html.theme-dark h5,
+html.theme-dark h6 {
+  color: #f8fbff !important;
+}
+
+html.theme-dark .form-label {
+  color: #f8fbff;
+}
+
+html.theme-dark .form-input {
+  border-color: rgba(71, 85, 105, 0.75);
+  background-color: rgba(8, 14, 28, 0.78);
+  color: #eef4ff;
+}
+
+html.theme-dark .form-input::placeholder {
+  color: #9fb0c8;
+}
+
+html.theme-dark .form-check {
+  border-color: rgba(71, 85, 105, 0.75);
+  background-color: rgba(8, 14, 28, 0.78);
+  color: #e5edf7;
+}
+
+html.theme-dark .form-submit {
+  background: #dcf7ff;
+  color: #071224;
+}
+
+html.theme-dark .form-submit:hover {
+  background: #b8ebff;
 }
 
 html.theme-dark .border-slate-200,
@@ -176,28 +219,4 @@ html.theme-dark .stack-panel {
 
 html.theme-dark .text-white {
   color: #f8fbff !important;
-}
-
-html.theme-dark .cta-card {
-  background: linear-gradient(145deg, #070c16 0%, #0b1326 52%, #0b2230 100%);
-  border-color: rgba(34, 211, 238, 0.35);
-}
-
-html.theme-dark .cta-primary {
-  background: #dcf7ff;
-  color: #071224;
-}
-
-html.theme-dark .cta-primary:hover {
-  background: #b8ebff;
-}
-
-html.theme-dark .cta-secondary {
-  border-color: rgba(226, 232, 240, 0.95);
-  color: #ffffff;
-  background: rgba(2, 6, 23, 0.5);
-}
-
-html.theme-dark .cta-secondary:hover {
-  background: rgba(2, 6, 23, 0.7);
 }

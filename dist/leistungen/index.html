@@ -3,7 +3,7 @@
         const theme = localStorage.getItem('techtrutz-theme');
         if (theme === 'dark') document.documentElement.classList.add('theme-dark');
       })();
-    </script><link rel="stylesheet" href="/_astro/barrierefreiheit.CFoozHR1.css"><script type="module">const e=document.getElementById("cookie-notice"),t=document.getElementById("cookie-accept"),c="techtrutz-cookie-notice-v1";e&&t&&(localStorage.getItem(c)==="accepted"||e.classList.remove("hidden"),t.addEventListener("click",()=>{localStorage.setItem(c,"accepted"),e.classList.add("hidden")}));
+    </script><link rel="stylesheet" href="/_astro/barrierefreiheit.Dc3FOjW7.css"><script type="module">const e=document.getElementById("cookie-notice"),t=document.getElementById("cookie-accept"),c="techtrutz-cookie-notice-v1";e&&t&&(localStorage.getItem(c)==="accepted"||e.classList.remove("hidden"),t.addEventListener("click",()=>{localStorage.setItem(c,"accepted"),e.classList.add("hidden")}));
 </script></head> <body data-page="/leistungen"> <a href="#main-content" class="skip-link">Zum Inhalt springen</a> <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md"> <div class="container-page flex h-16 items-center justify-between"> <a class="focus-ring inline-flex items-center gap-2 rounded text-xl font-bold tracking-tight text-ink-900" href="/" aria-label="TechTrutz Startseite"> <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-ink-900 text-white"> <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true"><path fill="currentColor" d="M13 2L3 14h7l-1 8 10-12h-7z"></path></svg> </span> <span class="font-display">TechTrutz</span> </a> <button id="mobile-menu-button" class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-800 md:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Navigationsmenü öffnen" type="button" data-i18n="nav.menu">
 Menü
 </button> <nav aria-label="Hauptnavigation" class="hidden items-center gap-4 md:flex"> <a href="/" class="focus-ring rounded text-sm font-medium text-slate-700 hover:text-accent-700" data-i18n="nav.home"> Startseite </a><a href="/leistungen" class="focus-ring rounded text-sm font-medium text-slate-700 hover:text-accent-700" data-i18n="nav.services"> Leistungen </a><a href="/ueber-uns" class="focus-ring rounded text-sm font-medium text-slate-700 hover:text-accent-700" data-i18n="nav.about"> Über uns </a><a href="/kontakt" class="focus-ring rounded text-sm font-medium text-slate-700 hover:text-accent-700" data-i18n="nav.contact"> Kontakt </a> <div class="flex items-center gap-2"> <div class="inline-flex items-center rounded-lg border border-slate-300 p-1"> <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="de">DE</button> <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="ru">RU</button> <button class="focus-ring rounded px-2 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-lang="en">EN</button> </div> <button id="theme-toggle" class="focus-ring rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100" type="button" data-i18n="theme.toggle" data-theme-button>
@@ -90,7 +90,27 @@ Verstanden
             'page.contact.card1.title': 'Kontaktdaten',
             'page.contact.card2.title': 'Hinweis zur Kontaktaufnahme',
             'page.contact.card2.text1': 'Mit Ihrer Anfrage erklären Sie sich einverstanden, dass wir Ihre Angaben zur Bearbeitung Ihres Anliegens verwenden. Details finden Sie in unserer Datenschutzerklärung.',
-            'page.contact.card2.text2': 'Für rechtliche Angaben gemäß §5 TMG beachten Sie bitte unser Impressum.'
+            'page.contact.card2.text2': 'Für rechtliche Angaben gemäß §5 TMG beachten Sie bitte unser Impressum.',
+            'page.contact.form.title': 'Rückruf oder Nachricht anfordern',
+            'page.contact.form.text': 'Kurz ausfüllen, abschicken, wir melden uns zeitnah mit einer konkreten Empfehlung.',
+            'page.contact.form.name': 'Name *',
+            'page.contact.form.name.placeholder': 'Max Mustermann',
+            'page.contact.form.email': 'E-Mail *',
+            'page.contact.form.email.placeholder': 'name@beispiel.de',
+            'page.contact.form.phone': 'Telefon',
+            'page.contact.form.phone.placeholder': '+49 ...',
+            'page.contact.form.topic': 'Thema',
+            'page.contact.form.topic.repair': 'Computer Reparatur',
+            'page.contact.form.topic.network': 'Netzwerk / WLAN',
+            'page.contact.form.topic.server': 'Server / NAS',
+            'page.contact.form.topic.website': 'Website',
+            'page.contact.form.topic.consulting': 'IT-Beratung',
+            'page.contact.form.topic.other': 'Sonstiges',
+            'page.contact.form.message': 'Nachricht *',
+            'page.contact.form.message.placeholder': 'Beschreiben Sie kurz Ihr Anliegen, Geräte/Umgebung und gewünschte Rückmeldung.',
+            'page.contact.form.consent.prefix': 'Ich stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden. Details in der',
+            'page.contact.form.consent.privacy': 'Datenschutzerklärung',
+            'page.contact.form.submit': 'Nachricht senden'
           },
           ru: {
             'nav.home': 'Главная',
@@ -163,7 +183,27 @@ Verstanden
             'page.contact.card1.title': 'Контактные данные',
             'page.contact.card2.title': 'Примечание по обращению',
             'page.contact.card2.text1': 'Отправляя запрос, вы соглашаетесь на обработку данных для ответа по вашему обращению. Подробности в нашей политике конфиденциальности.',
-            'page.contact.card2.text2': 'Юридические сведения согласно §5 TMG доступны в разделе Impressum.'
+            'page.contact.card2.text2': 'Юридические сведения согласно §5 TMG доступны в разделе Impressum.',
+            'page.contact.form.title': 'Запросить звонок или написать нам',
+            'page.contact.form.text': 'Заполните короткую форму, и мы свяжемся с вами с понятным планом действий.',
+            'page.contact.form.name': 'Имя *',
+            'page.contact.form.name.placeholder': 'Иван Иванов',
+            'page.contact.form.email': 'E-Mail *',
+            'page.contact.form.email.placeholder': 'name@example.com',
+            'page.contact.form.phone': 'Телефон',
+            'page.contact.form.phone.placeholder': '+49 ...',
+            'page.contact.form.topic': 'Тема',
+            'page.contact.form.topic.repair': 'Ремонт компьютера',
+            'page.contact.form.topic.network': 'Сеть / WLAN',
+            'page.contact.form.topic.server': 'Сервер / NAS',
+            'page.contact.form.topic.website': 'Сайт',
+            'page.contact.form.topic.consulting': 'IT-консультация',
+            'page.contact.form.topic.other': 'Другое',
+            'page.contact.form.message': 'Сообщение *',
+            'page.contact.form.message.placeholder': 'Кратко опишите задачу, устройство/среду и желаемый формат обратной связи.',
+            'page.contact.form.consent.prefix': 'Я согласен на обработку данных для ответа по моему обращению. Подробности в',
+            'page.contact.form.consent.privacy': 'политике конфиденциальности',
+            'page.contact.form.submit': 'Отправить сообщение'
           },
           en: {
             'nav.home': 'Home',
@@ -236,7 +276,27 @@ Verstanden
             'page.contact.card1.title': 'Contact details',
             'page.contact.card2.title': 'Contact notice',
             'page.contact.card2.text1': 'By contacting us, you agree that we may process your details to handle your request. See our privacy policy for details.',
-            'page.contact.card2.text2': 'For legal information under §5 TMG, please see our imprint.'
+            'page.contact.card2.text2': 'For legal information under §5 TMG, please see our imprint.',
+            'page.contact.form.title': 'Request a callback or send a message',
+            'page.contact.form.text': 'Complete the short form and we will reply quickly with a practical next step.',
+            'page.contact.form.name': 'Name *',
+            'page.contact.form.name.placeholder': 'Jane Doe',
+            'page.contact.form.email': 'Email *',
+            'page.contact.form.email.placeholder': 'name@example.com',
+            'page.contact.form.phone': 'Phone',
+            'page.contact.form.phone.placeholder': '+49 ...',
+            'page.contact.form.topic': 'Topic',
+            'page.contact.form.topic.repair': 'Computer repair',
+            'page.contact.form.topic.network': 'Network / Wi-Fi',
+            'page.contact.form.topic.server': 'Server / NAS',
+            'page.contact.form.topic.website': 'Website',
+            'page.contact.form.topic.consulting': 'IT consulting',
+            'page.contact.form.topic.other': 'Other',
+            'page.contact.form.message': 'Message *',
+            'page.contact.form.message.placeholder': 'Briefly describe your issue, setup/environment, and preferred reply channel.',
+            'page.contact.form.consent.prefix': 'I agree that my details may be processed to handle my request. Details in the',
+            'page.contact.form.consent.privacy': 'privacy policy',
+            'page.contact.form.submit': 'Send message'
           }
         };
 
@@ -248,6 +308,10 @@ Verstanden
           document.querySelectorAll('[data-i18n]').forEach((el) => {
             const key = el.getAttribute('data-i18n');
             if (key && dict[key]) el.textContent = dict[key];
+          });
+          document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (key && dict[key]) el.setAttribute('placeholder', dict[key]);
           });
           document.querySelectorAll('[data-theme-button]').forEach((btn) => {
             btn.textContent = labels[lang];
