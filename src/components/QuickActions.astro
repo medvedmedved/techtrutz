@@ -1,0 +1,95 @@
+---
+import { site } from '../data/site';
+---
+
+<dialog id="quick-actions-dialog" class="quick-actions-dialog" aria-labelledby="quick-actions-title" aria-describedby="quick-actions-text">
+  <div class="quick-actions-panel">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <h2 id="quick-actions-title" class="text-lg font-bold text-ink-900" data-i18n="quick.title">Schneller Kontakt</h2>
+        <p id="quick-actions-text" class="mt-1 text-sm text-slate-700" data-i18n="quick.text">Wähle direkt den schnellsten Weg.</p>
+      </div>
+      <button
+        type="button"
+        class="focus-ring inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100"
+        data-dialog-close
+        aria-label="Dialog schließen"
+      >
+        <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true">
+          <path fill="currentColor" d="M6.7 5.3L5.3 6.7 10.6 12l-5.3 5.3 1.4 1.4 5.3-5.3 5.3 5.3 1.4-1.4-5.3-5.3 5.3-5.3-1.4-1.4-5.3 5.3z" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="mt-4 grid gap-2.5">
+      <a
+        href={site.whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="focus-ring inline-flex items-center justify-center rounded-xl bg-ink-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-ink-800"
+        data-i18n="quick.whatsapp"
+      >
+        WhatsApp
+      </a>
+      <a
+        href={`tel:${site.phoneHref}`}
+        class="focus-ring inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+        data-i18n="quick.call"
+      >
+        Anrufen
+      </a>
+      <a
+        href="/kontakt"
+        class="focus-ring inline-flex items-center justify-center rounded-xl border border-accent-200 bg-accent-50 px-4 py-2.5 text-sm font-semibold text-accent-700 hover:bg-accent-100"
+        data-i18n="quick.form"
+      >
+        Nachricht senden
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById('quick-actions-dialog');
+
+  if (dialog) {
+    const supportsDialog = typeof dialog.showModal === 'function';
+
+    const openDialog = () => {
+      if (supportsDialog) {
+        if (!dialog.open) dialog.showModal();
+        return;
+      }
+      dialog.setAttribute('open', 'true');
+    };
+
+    const closeDialog = () => {
+      if (supportsDialog) {
+        if (dialog.open) dialog.close();
+        return;
+      }
+      dialog.removeAttribute('open');
+    };
+
+    dialog.querySelectorAll('[data-dialog-close]').forEach((button) => {
+      button.addEventListener('click', closeDialog);
+    });
+
+    window.openContactsDialog = openDialog;
+    window.openContacts = openDialog;
+    document.addEventListener('open-contacts-dialog', openDialog);
+
+    dialog.addEventListener('click', (event) => {
+      if (!(dialog instanceof HTMLDialogElement)) return;
+      const rect = dialog.getBoundingClientRect();
+      const x = event.clientX;
+      const y = event.clientY;
+      const clickedInside = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+      if (!clickedInside) closeDialog();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeDialog();
+    });
+  }
+</script>

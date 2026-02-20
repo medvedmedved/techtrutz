@@ -1,0 +1,198 @@
+<div class="help-assistant-root" data-help-assistant>
+  <button
+    id="help-assistant-trigger"
+    type="button"
+    class="help-assistant-trigger focus-ring"
+    aria-expanded="false"
+    aria-controls="help-assistant-panel"
+  >
+    <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true">
+      <path fill="currentColor" d="M4 12a8 8 0 1114.9 4l1.1 4-4.1-1A8 8 0 014 12m8-6a6 6 0 00-5.2 9L7 15l-.5 1.8 1.8-.5.4.2A6 6 0 1012 6" />
+    </svg>
+    <span id="help-assistant-trigger-text">Быстрая помощь</span>
+  </button>
+
+  <section id="help-assistant-panel" class="help-assistant-panel hidden" role="dialog" aria-label="Quick Assistant">
+    <div class="help-assistant-shell">
+      <div class="help-assistant-header">
+        <div>
+          <h2 id="help-assistant-title" class="text-base font-bold text-ink-900">Мини-помощник</h2>
+          <p id="help-assistant-subtitle" class="text-xs text-slate-600">Выберите устройство и проблему</p>
+        </div>
+        <button
+          type="button"
+          id="help-assistant-close"
+          class="focus-ring inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100"
+          aria-label="Close"
+        >
+          <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true">
+            <path fill="currentColor" d="M6.7 5.3L5.3 6.7 10.6 12l-5.3 5.3 1.4 1.4 5.3-5.3 5.3 5.3 1.4-1.4-5.3-5.3 5.3-5.3-1.4-1.4-5.3 5.3z" />
+          </svg>
+        </button>
+      </div>
+      <div id="help-assistant-content" class="help-assistant-content"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const root = document.querySelector('[data-help-assistant]');
+  const trigger = document.getElementById('help-assistant-trigger');
+  const panel = document.getElementById('help-assistant-panel');
+  const closeButton = document.getElementById('help-assistant-close');
+  const content = document.getElementById('help-assistant-content');
+  const triggerText = document.getElementById('help-assistant-trigger-text');
+  const titleEl = document.getElementById('help-assistant-title');
+  const subtitleEl = document.getElementById('help-assistant-subtitle');
+
+  if (root && trigger && panel && closeButton && content && triggerText && titleEl && subtitleEl) {
+    const labels = {
+      de: {
+        trigger: 'Schnelle Hilfe',
+        title: 'Mini-Assistent',
+        subtitle: 'Gerät und Problem auswählen',
+        loading: 'Hilfe wird geladen...'
+      },
+      ru: {
+        trigger: 'Быстрая помощь',
+        title: 'Мини-помощник',
+        subtitle: 'Выберите устройство и проблему',
+        loading: 'Загружаю подсказки...'
+      },
+      en: {
+        trigger: 'Quick Help',
+        title: 'Mini assistant',
+        subtitle: 'Pick a device and issue',
+        loading: 'Loading help...'
+      }
+    };
+
+    const detectLang = () => {
+      const stored = localStorage.getItem('techtrutz-lang');
+      const lang = (stored || document.documentElement.getAttribute('lang') || 'de').toLowerCase();
+      if (lang.startsWith('ru')) return 'ru';
+      if (lang.startsWith('en')) return 'en';
+      return 'de';
+    };
+
+    const applyLabels = (lang) => {
+      const dict = labels[lang] || labels.de;
+      triggerText.textContent = dict.trigger;
+      titleEl.textContent = dict.title;
+      subtitleEl.textContent = dict.subtitle;
+    };
+
+    const openContacts = () => {
+      if (typeof window.openContactsDialog === 'function') {
+        window.openContactsDialog();
+        return;
+      }
+      document.dispatchEvent(new Event('open-contacts-dialog'));
+      setTimeout(() => {
+        if (typeof window.openContactsDialog !== 'function') {
+          window.location.href = '/kontakt';
+        }
+      }, 150);
+    };
+
+    let controller = null;
+    let engineModulePromise = null;
+    let loader = null;
+
+    const preloadEngineModule = () => {
+      if (!engineModulePromise) {
+        engineModulePromise = import('../scripts/helpAssistantEngine');
+      }
+      return engineModulePromise;
+    };
+
+    const ensureEngine = async () => {
+      if (controller) return controller;
+
+      if (!loader) {
+        const lang = detectLang();
+        content.innerHTML = `<div class="help-assistant-loading">${labels[lang].loading}</div>`;
+        loader = preloadEngineModule().then((module) => {
+          controller = module.createHelpAssistantEngine({
+            root: content,
+            openContacts,
+            lang
+          });
+          return controller;
+        });
+      }
+
+      return loader;
+    };
+
+    const warmupEngine = () => {
+      if (controller || loader) return;
+      preloadEngineModule().catch(() => {
+        // no-op: engine will retry on first explicit open
+      });
+    };
+
+    const isOpen = () => !panel.classList.contains('hidden');
+
+    const openPanel = async () => {
+      panel.classList.remove('hidden');
+      root.setAttribute('data-open', 'true');
+      trigger.setAttribute('aria-expanded', 'true');
+      const lang = detectLang();
+      applyLabels(lang);
+      const engine = await ensureEngine();
+      engine.setLanguage(lang);
+    };
+
+    const closePanel = () => {
+      panel.classList.add('hidden');
+      root.setAttribute('data-open', 'false');
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    trigger.addEventListener('click', () => {
+      if (isOpen()) {
+        closePanel();
+      } else {
+        openPanel();
+      }
+    });
+
+    closeButton.addEventListener('click', closePanel);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && isOpen()) closePanel();
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (!isOpen()) return;
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (panel.contains(target) || trigger.contains(target)) return;
+      closePanel();
+    });
+
+    document.addEventListener('techtrutz:lang-change', (event) => {
+      const lang = event && event.detail && event.detail.lang ? event.detail.lang : detectLang();
+      const normalized = String(lang).startsWith('ru')
+        ? 'ru'
+        : String(lang).startsWith('en')
+          ? 'en'
+          : 'de';
+      applyLabels(normalized);
+      if (controller) controller.setLanguage(normalized);
+    });
+
+    trigger.addEventListener('pointerenter', warmupEngine, { passive: true });
+    trigger.addEventListener('focus', warmupEngine, { passive: true });
+    trigger.addEventListener('touchstart', warmupEngine, { passive: true, once: true });
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(() => warmupEngine(), { timeout: 1400 });
+    } else {
+      setTimeout(() => warmupEngine(), 850);
+    }
+
+    applyLabels(detectLang());
+  }
+</script>

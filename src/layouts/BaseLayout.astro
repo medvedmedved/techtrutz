@@ -407,6 +407,9 @@ const websiteLd = {
             btn.classList.toggle('bg-ink-900', active);
             btn.classList.toggle('text-white', active);
           });
+          document.querySelectorAll('[data-lang-cycle-label]').forEach((label) => {
+            label.textContent = lang.toUpperCase();
+          });
         };
 
         const applyThemeLogos = (theme) => {
@@ -429,66 +432,48 @@ const websiteLd = {
         const menuButton = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
         if (menuButton && menu) {
-          const mobileWheels = Array.from(menu.querySelectorAll('[data-mobile-wheel]'));
+          const closeDurationMs = 760;
+          let closeTimer = null;
+          const isMenuOpen = () => menuButton.getAttribute('aria-expanded') === 'true';
+          const isMenuClosing = () => menu.getAttribute('data-closing') === 'true';
 
-          const updateWheelState = (wheel) => {
-            if (!wheel || wheel.clientHeight === 0) return;
-            const wheelRect = wheel.getBoundingClientRect();
-            const centerY = wheelRect.top + wheelRect.height / 2;
-            const radius = wheelRect.height * 0.48;
-
-            wheel.querySelectorAll('.mobile-wheel-item').forEach((item) => {
-              const itemRect = item.getBoundingClientRect();
-              const itemCenter = itemRect.top + itemRect.height / 2;
-              const dist = itemCenter - centerY;
-              const ratio = Math.min(Math.abs(dist) / radius, 1);
-              const rotate = Math.max(-26, Math.min(26, -dist / 4.4));
-              const scale = 1 - ratio * 0.24;
-              const offsetY = -Math.sign(dist || 1) * ratio * 3;
-
-              item.style.setProperty('--wheel-rotate', `${rotate.toFixed(2)}deg`);
-              item.style.setProperty('--wheel-scale', `${scale.toFixed(3)}`);
-              item.style.setProperty('--wheel-y', `${offsetY.toFixed(2)}px`);
-            });
+          const clearCloseTimer = () => {
+            if (closeTimer) {
+              window.clearTimeout(closeTimer);
+              closeTimer = null;
+            }
           };
 
-          const centerWheelActive = (wheel) => {
-            const active = wheel.querySelector('[aria-current=\"page\"]') || wheel.querySelector('.mobile-wheel-item');
-            if (!active) return;
-            const nextTop = active.offsetTop - (wheel.clientHeight - active.clientHeight) / 2;
-            wheel.scrollTo({ top: Math.max(0, nextTop), behavior: 'auto' });
-          };
-
-          mobileWheels.forEach((wheel) => {
-            wheel.addEventListener('scroll', () => updateWheelState(wheel), { passive: true });
-          });
-          window.addEventListener('resize', () => {
-            mobileWheels.forEach((wheel) => updateWheelState(wheel));
-          });
-
-          const closeMenu = () => {
-            menuButton.setAttribute('aria-expanded', 'false');
+          const finishClose = () => {
             menu.classList.remove('flex');
             menu.classList.add('hidden');
+            menu.setAttribute('data-closing', 'false');
+          };
+
+          const closeMenu = () => {
+            if (!isMenuOpen() && !isMenuClosing()) return;
+            clearCloseTimer();
+            menuButton.setAttribute('aria-expanded', 'false');
             menu.setAttribute('data-open', 'false');
+            menu.setAttribute('data-closing', 'true');
+            closeTimer = window.setTimeout(() => {
+              finishClose();
+            }, closeDurationMs);
           };
 
           const openMenu = () => {
+            clearCloseTimer();
             menuButton.setAttribute('aria-expanded', 'true');
+            menu.setAttribute('data-closing', 'false');
             menu.classList.remove('hidden');
             menu.classList.add('flex');
-            menu.setAttribute('data-open', 'true');
             requestAnimationFrame(() => {
-              mobileWheels.forEach((wheel) => {
-                centerWheelActive(wheel);
-                updateWheelState(wheel);
-              });
+              menu.setAttribute('data-open', 'true');
             });
           };
 
           menuButton.addEventListener('click', () => {
-            const expanded = menuButton.getAttribute('aria-expanded') === 'true';
-            if (expanded) {
+            if (isMenuOpen()) {
               closeMenu();
             } else {
               openMenu();
@@ -499,8 +484,20 @@ const websiteLd = {
             el.addEventListener('click', () => closeMenu());
           });
 
+          document.addEventListener('click', (event) => {
+            if (!isMenuOpen()) return;
+            const target = event.target;
+            if (!(target instanceof Node)) return;
+            if (menu.contains(target) || menuButton.contains(target)) return;
+            closeMenu();
+          });
+
           document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') closeMenu();
+          });
+
+          window.addEventListener('resize', () => {
+            if (window.matchMedia('(min-width: 768px)').matches) closeMenu();
           });
         }
 
@@ -517,12 +514,108 @@ const websiteLd = {
           });
         });
 
+        document.querySelectorAll('[data-lang-cycle]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const order = ['de', 'ru', 'en'];
+            const current = localStorage.getItem('techtrutz-lang') || 'de';
+            const currentIndex = order.indexOf(current);
+            const next = order[(currentIndex + 1 + order.length) % order.length];
+            localStorage.setItem('techtrutz-lang', next);
+            applyLanguage(next);
+          });
+        });
+
         document.querySelectorAll('[data-theme-button]').forEach((btn) => {
           btn.addEventListener('click', () => {
             const next = document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark';
             applyTheme(next);
           });
         });
+
+        const mobilePanels = Array.from(document.querySelectorAll('.stack-panel'));
+        if (mobilePanels.length > 0) {
+          const mobileMatch = window.matchMedia('(max-width: 1023px)');
+          let mobileScrollTicking = false;
+
+          const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+          const resetMobilePanelState = () => {
+            mobilePanels.forEach((panel) => {
+              panel.style.setProperty('--mobile-card-opacity', '1');
+              panel.style.setProperty('--mobile-card-scale', '1');
+              panel.style.setProperty('--mobile-card-shift', '0px');
+              panel.style.setProperty('--mobile-card-blur', '0px');
+              panel.style.setProperty('--mobile-dust-opacity', '0');
+              panel.style.setProperty('--mobile-dust-drift', '0px');
+              panel.style.setProperty('--mobile-dust-lift', '0px');
+              panel.style.setProperty('--mobile-dust-blur', '0px');
+              panel.style.setProperty('--mobile-dust-grow', '0');
+            });
+          };
+
+          const updateMobilePanelState = () => {
+            mobileScrollTicking = false;
+            if (!mobileMatch.matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              resetMobilePanelState();
+              return;
+            }
+
+            const viewportHeight = Math.max(window.innerHeight, 1);
+
+            mobilePanels.forEach((panel, index) => {
+              const rect = panel.getBoundingClientRect();
+              const nextPanel = mobilePanels[index + 1];
+              const nextRect = nextPanel ? nextPanel.getBoundingClientRect() : null;
+
+              const appear = clamp((viewportHeight * 1.02 - rect.top) / (viewportHeight * 0.5), 0, 1);
+
+              let leave = 0;
+              if (nextRect) {
+                const leaveStart = viewportHeight * 0.86;
+                const leaveEnd = viewportHeight * 0.34;
+                leave = clamp((leaveStart - nextRect.top) / (leaveStart - leaveEnd), 0, 1);
+              } else {
+                leave = clamp((viewportHeight * 0.18 - rect.top) / (viewportHeight * 0.58), 0, 1);
+              }
+
+              const opacity = clamp(appear * (1 - leave * 0.9), 0.08, 1);
+              const scale = clamp(0.94 + appear * 0.06 - leave * 0.05, 0.88, 1.02);
+              const shiftY = (1 - appear) * 16 - leave * 26;
+              const blur = (1 - appear) * 1.4 + leave * 2.8;
+              const dustOpacity = Math.pow(leave, 1.1) * 0.88;
+              const dustDrift = leave * 34;
+              const dustLift = leave * 11;
+              const dustBlur = leave * 1.7;
+              const dustGrow = leave * 0.26;
+
+              panel.style.setProperty('--mobile-card-opacity', opacity.toFixed(3));
+              panel.style.setProperty('--mobile-card-scale', scale.toFixed(3));
+              panel.style.setProperty('--mobile-card-shift', `${shiftY.toFixed(2)}px`);
+              panel.style.setProperty('--mobile-card-blur', `${blur.toFixed(2)}px`);
+              panel.style.setProperty('--mobile-dust-opacity', dustOpacity.toFixed(3));
+              panel.style.setProperty('--mobile-dust-drift', `${dustDrift.toFixed(2)}px`);
+              panel.style.setProperty('--mobile-dust-lift', `${dustLift.toFixed(2)}px`);
+              panel.style.setProperty('--mobile-dust-blur', `${dustBlur.toFixed(2)}px`);
+              panel.style.setProperty('--mobile-dust-grow', dustGrow.toFixed(3));
+            });
+          };
+
+          const requestMobilePanelUpdate = () => {
+            if (mobileScrollTicking) return;
+            mobileScrollTicking = true;
+            window.requestAnimationFrame(updateMobilePanelState);
+          };
+
+          window.addEventListener('scroll', requestMobilePanelUpdate, { passive: true });
+          window.addEventListener('resize', requestMobilePanelUpdate);
+          if (typeof mobileMatch.addEventListener === 'function') {
+            mobileMatch.addEventListener('change', requestMobilePanelUpdate);
+          } else if (typeof mobileMatch.addListener === 'function') {
+            mobileMatch.addListener(requestMobilePanelUpdate);
+          }
+
+          requestMobilePanelUpdate();
+        }
       })();
     </script>
   </body>
