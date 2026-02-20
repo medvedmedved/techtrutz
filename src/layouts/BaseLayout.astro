@@ -12,9 +12,27 @@ interface Props {
 }
 
 const { title, description, path = '/' } = Astro.props;
+const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
+const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1];
+const configuredBase = process.env.SITE_BASE || (isGithubActions && repoName ? `/${repoName}` : '/');
+const basePath = configuredBase === '/' ? '' : `/${configuredBase.replace(/^\/+|\/+$/g, '')}`;
+
+const withBase = (assetPath: string) => {
+  const clean = assetPath.replace(/^\/+/, '');
+  if (!clean) return basePath ? `${basePath}/` : '/';
+  return `${basePath}/${clean}`.replace(/\/{2,}/g, '/');
+};
 const canonical = new URL(path, site.url).toString();
-const ogImage = new URL('/og-image.svg', site.url).toString();
-const logoImage = new URL('/logoforwhite.png', site.url).toString();
+const ogImage = new URL(withBase('/og-image.svg'), site.url).toString();
+const logoImage = new URL(withBase('/logoforwhite.png'), site.url).toString();
+const faviconVersion = '20260219';
+const faviconIco = `${withBase('/favicon.ico')}?v=${faviconVersion}`;
+const favicon32 = `${withBase('/favicon-32.png')}?v=${faviconVersion}`;
+const favicon16 = `${withBase('/favicon-16.png')}?v=${faviconVersion}`;
+const favicon512 = `${withBase('/favicon.png')}?v=${faviconVersion}`;
+const appleTouchIcon = `${withBase('/apple-touch-icon.png')}?v=${faviconVersion}`;
+const logoLight = withBase('/logoforwhite.png');
+const logoDark = withBase('/logoforblack.png');
 
 const organizationLd = {
   '@context': 'https://schema.org',
@@ -51,7 +69,10 @@ const websiteLd = {
 ---
 
 <!doctype html>
-<html lang="de">
+<html
+  lang="de"
+  style={`--tt-logo-light: url('${logoLight}'); --tt-logo-dark: url('${logoDark}');`}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -62,11 +83,11 @@ const websiteLd = {
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0b1020" />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=20260219" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=20260219" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=20260219" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=20260219" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260219" />
+    <link rel="icon" type="image/x-icon" href={faviconIco} />
+    <link rel="icon" type="image/png" sizes="32x32" href={favicon32} />
+    <link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
+    <link rel="icon" type="image/png" sizes="512x512" href={favicon512} />
+    <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" />
@@ -101,11 +122,11 @@ const websiteLd = {
   </head>
   <body data-page={path}>
     <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
-    <Nav />
+    <Nav basePath={basePath} />
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
+    <Footer basePath={basePath} />
     <CookieNotice />
     <script is:inline>
       (() => {

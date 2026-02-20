@@ -1,4 +1,12 @@
 ---
+const { basePath = '' } = Astro.props;
+const normalizedBase = basePath && basePath !== '/' ? `/${String(basePath).replace(/^\/+|\/+$/g, '')}` : '';
+const withBase = (path: string) => {
+  const clean = path.replace(/^\/+/, '');
+  if (!clean) return normalizedBase ? `${normalizedBase}/` : '/';
+  return `${normalizedBase}/${clean}`.replace(/\/{2,}/g, '/');
+};
+
 const links = [
   { href: '/', label: 'Startseite', key: 'nav.home', icon: 'home', arcX: '-0.9rem', arcY: '0.95rem' },
   { href: '/leistungen', label: 'Leistungen', key: 'nav.services', icon: 'tool', arcX: '-4.35rem', arcY: '2.85rem' },
@@ -6,23 +14,28 @@ const links = [
   { href: '/kontakt', label: 'Kontakt', key: 'nav.contact', icon: 'chat', arcX: '-11.55rem', arcY: '5.95rem' }
 ];
 
-const pathname = Astro.url.pathname;
+const pathnameRaw = Astro.url.pathname;
+const pathname = normalizedBase && pathnameRaw.startsWith(normalizedBase)
+  ? pathnameRaw.slice(normalizedBase.length) || '/'
+  : pathnameRaw;
+const logoLightNav = withBase('/logoforwhite-nav.png');
+const logoDarkNav = withBase('/logoforblack-nav.png');
 ---
 
 <header class="site-header relative sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
   <div class="container-page flex h-28 items-center justify-between">
-    <a class="focus-ring inline-flex items-center rounded-xl" href="/" aria-label="TechTrutz Startseite">
+    <a class="focus-ring inline-flex items-center rounded-xl" href={withBase('/')} aria-label="TechTrutz Startseite">
       <span class="site-logo-switch" aria-hidden="true">
         <img
-          src="/logoforwhite-nav.png"
+          src={logoLightNav}
           alt=""
           class="logo-wordmark logo-wordmark-nav site-logo"
           loading="eager"
           fetchpriority="high"
           decoding="async"
           data-theme-logo
-          data-logo-light="/logoforwhite-nav.png"
-          data-logo-dark="/logoforblack-nav.png"
+          data-logo-light={logoLightNav}
+          data-logo-dark={logoDarkNav}
         />
       </span>
       <span class="sr-only">TechTrutz</span>
@@ -75,7 +88,7 @@ const pathname = Astro.url.pathname;
       {
         links.map((link) => (
           <a
-            href={link.href}
+            href={withBase(link.href)}
             class={`focus-ring rounded text-sm font-medium ${
               pathname === link.href ? 'text-accent-700' : 'text-slate-700 hover:text-accent-700'
             }`}
@@ -108,7 +121,7 @@ const pathname = Astro.url.pathname;
           <span class="sr-only" data-i18n="theme.toggle">Dark</span>
         </button>
       </div>
-      <a href="/kontakt" class="focus-ring rounded-lg bg-ink-900 px-3 py-2 text-sm font-semibold text-white hover:bg-ink-800" data-i18n="nav.cta">Anfrage starten</a>
+      <a href={withBase('/kontakt')} class="focus-ring rounded-lg bg-ink-900 px-3 py-2 text-sm font-semibold text-white hover:bg-ink-800" data-i18n="nav.cta">Anfrage starten</a>
     </nav>
   </div>
 
@@ -123,7 +136,7 @@ const pathname = Astro.url.pathname;
         {
           links.map((link, index) => (
             <a
-              href={link.href}
+              href={withBase(link.href)}
               class={`focus-ring site-mobile-menu-link ${
                 pathname === link.href ? 'site-mobile-menu-link-active' : ''
               }`}

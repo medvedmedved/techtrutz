@@ -1,16 +1,28 @@
+---
+const { basePath = '' } = Astro.props;
+const normalizedBase = basePath && basePath !== '/' ? `/${String(basePath).replace(/^\/+|\/+$/g, '')}` : '';
+const withBase = (path: string) => {
+  const clean = path.replace(/^\/+/, '');
+  if (!clean) return normalizedBase ? `${normalizedBase}/` : '/';
+  return `${normalizedBase}/${clean}`.replace(/\/{2,}/g, '/');
+};
+const logoLightNav = withBase('/logoforwhite-nav.png');
+const logoDarkNav = withBase('/logoforblack-nav.png');
+---
+
 <footer class="site-footer mt-24 border-t border-slate-200 bg-white/80 py-10">
   <div class="container-page flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
     <div class="flex items-center gap-3">
       <span class="site-logo-switch" aria-hidden="true">
         <img
-          src="/logoforwhite-nav.png"
+          src={logoLightNav}
           alt=""
           class="logo-wordmark logo-wordmark-footer site-logo"
           loading="lazy"
           decoding="async"
           data-theme-logo
-          data-logo-light="/logoforwhite-nav.png"
-          data-logo-dark="/logoforblack-nav.png"
+          data-logo-light={logoLightNav}
+          data-logo-dark={logoDarkNav}
         />
       </span>
       <div>
@@ -19,10 +31,10 @@
       </div>
     </div>
     <nav aria-label="Footer Navigation" class="flex flex-wrap gap-5 text-sm">
-      <a class="focus-ring rounded text-slate-700 hover:text-accent-700" href="/impressum" data-i18n="footer.imprint">Impressum</a>
-      <a class="focus-ring rounded text-slate-700 hover:text-accent-700" href="/datenschutz" data-i18n="footer.privacy">Datenschutz</a>
-      <a class="focus-ring rounded text-slate-700 hover:text-accent-700" href="/barrierefreiheit" data-i18n="footer.accessibility">Barrierefreiheit</a>
-      <a class="focus-ring rounded text-slate-700 hover:text-accent-700" href="/kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a class="focus-ring rounded text-slate-700 hover:text-accent-700" href={withBase('/impressum')} data-i18n="footer.imprint">Impressum</a>
+      <a class="focus-ring rounded text-slate-700 hover:text-accent-700" href={withBase('/datenschutz')} data-i18n="footer.privacy">Datenschutz</a>
+      <a class="focus-ring rounded text-slate-700 hover:text-accent-700" href={withBase('/barrierefreiheit')} data-i18n="footer.accessibility">Barrierefreiheit</a>
+      <a class="focus-ring rounded text-slate-700 hover:text-accent-700" href={withBase('/kontakt')} data-i18n="footer.contact">Kontakt</a>
     </nav>
   </div>
 </footer>
